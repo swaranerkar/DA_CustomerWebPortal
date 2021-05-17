@@ -4,16 +4,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'Model/CTMTrans.dart';
 import 'Model/CustPerson.dart';
-import 'Model/UserDetails.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class CTMDeliveryWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
   int custQuoteMasterID;
   CTMDeliveryWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -29,7 +26,7 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
   final ctmdelAmtController = TextEditingController();
   DateTime now;
   DateTime date;
-
+  String urlIP = "https://192.168.1.19:45456";
   void initState() {
     super.initState();
 
@@ -43,8 +40,8 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
 
   void getCTMInfo(int custQuoteMasterID) async {
     try {
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/Ctmtran/$custQuoteMasterID'));
+      var result =
+          await http.get(Uri.parse(urlIP + '/api/Ctmtran/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.ctmTrans = CTMTrans.fromJson(jsonDecode(result.body));

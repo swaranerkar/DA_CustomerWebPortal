@@ -7,15 +7,13 @@ import 'Model/ArrivalInfo.dart';
 import 'Model/BunkerInfo.dart';
 import 'Model/CustPerson.dart';
 import 'Model/DepartureInfo.dart';
-import 'Model/UserDetails.dart';
 
 // ignore: must_be_immutable
 class ArrivalInfoWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
+
   int custQuoteMasterID;
   ArrivalInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -33,7 +31,7 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
   final lubController = TextEditingController();
   final gasOilController = TextEditingController();
   final fwrobController = TextEditingController();
-
+  String urlIP = "https://192.168.1.19:45456";
   // hfoController.text = '123';
   // mdoController.text = '456';
   //lubController.text = '789';
@@ -52,8 +50,8 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
 
   void getArrivalInfo(int custQuoteMasterID) async {
     try {
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/ArrivalInfoes/Arrival/$custQuoteMasterID'));
+      var result = await http.get(
+          Uri.parse(urlIP + '/api/ArrivalInfoes/Arrival/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.arrivalInfo = ArrivalInfo.fromJson(jsonDecode(result.body));
@@ -64,14 +62,6 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
           fwrobController.text = this.arrivalInfo.hforob.toString();
         });
       } else {
-        /*Fluttertoast.showToast(
-              msg: "Failed to fetch arrival info!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: const Color(0xffD09FA6),
-              textColor: Colors.white,
-              fontSize: 16.0);*/
         throw Exception('Failed to fetch arrival information!');
       }
     } catch (Exception) {
@@ -429,11 +419,9 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
 
 // ignore: must_be_immutable
 class DepartureInfoWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
   int custQuoteMasterID;
   DepartureInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -453,7 +441,7 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
   final fwrobController = TextEditingController();
   DateTime now;
   DateTime date;
-
+  String urlIP = "https://192.168.1.19:45456";
   void initState() {
     super.initState();
 
@@ -467,8 +455,8 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
 
   void getDepartureInfo(int custQuoteMasterID) async {
     try {
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/ArrivalInfoes/Departure/$custQuoteMasterID'));
+      var result = await http.get(
+          Uri.parse(urlIP + '/api/ArrivalInfoes/Departure/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.departureInfo = DepartureInfo.fromJson(jsonDecode(result.body));
@@ -832,11 +820,10 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
 
 // ignore: must_be_immutable
 class BunkerInfoWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
+
   int custQuoteMasterID;
   BunkerInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -853,7 +840,7 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
   final mdorecdController = TextEditingController();
   final gasOilRecdController = TextEditingController();
   final fwrecdController = TextEditingController();
-
+  String urlIP = "https://192.168.1.19:45456";
   void initState() {
     super.initState();
 
@@ -867,8 +854,8 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
 
   void getBunkerInfo(int custQuoteMasterID) async {
     try {
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/BunkerInfo/$custQuoteMasterID'));
+      var result = await http
+          .get(Uri.parse(urlIP + '/api/BunkerInfo/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.bunkerInfo = BunkerInfo.fromJson(jsonDecode(result.body));
@@ -1172,11 +1159,10 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
 
 // ignore: must_be_immutable
 class DataSheetPageWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
+
   int custQuoteMasterID;
   DataSheetPageWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }

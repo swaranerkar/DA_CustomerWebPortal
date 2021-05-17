@@ -3,19 +3,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:login_and_signup_web/Model/CustPerson.dart';
-import 'package:login_and_signup_web/Model/UserDetails.dart';
-import 'package:login_and_signup_web/constants.dart';
-import 'package:login_and_signup_web/homescreen.dart';
 import 'package:intl/intl.dart';
 import 'Model/ListVoyFiles.dart';
 
 // ignore: must_be_immutable
 class ShipDetails extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
   int custQuoteMasterID;
   ShipDetails(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -34,7 +29,7 @@ class _ShipDetailsState extends State<ShipDetails> {
   final agencyTypeDescController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
-
+  String urlIP = "https://192.168.1.19:45456";
   final dateTimeFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss");
   final dateFormat = new DateFormat('dd-MM-yyyy');
   final timeFormat = new DateFormat('HH:mm');
@@ -81,8 +76,8 @@ class _ShipDetailsState extends State<ShipDetails> {
 
   void getShipDetails(int custQuoteMasterID) async {
     try {
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/ListVoyFile/$custQuoteMasterID'));
+      var result = await http
+          .get(Uri.parse(urlIP + '/api/ListVoyFile/$custQuoteMasterID'));
       print(custQuoteMasterID);
       if (result.statusCode == 200) {
         ListVoyFiles shipDetails =

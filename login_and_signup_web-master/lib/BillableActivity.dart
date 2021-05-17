@@ -4,17 +4,14 @@ import 'package:login_and_signup_web/constants.dart';
 import 'package:intl/intl.dart';
 import 'Model/CustPerson.dart';
 import 'Model/ListBillActTrans.dart';
-import 'Model/UserDetails.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // ignore: must_be_immutable
 class BillableActivityWidget extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
   int custQuoteMasterID;
   BillableActivityWidget(CustPerson custPerson, int custQuoteMasterID) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
@@ -27,10 +24,11 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
   final dateFormat = new DateFormat('dd-MM-yyyy');
   List<ListBillActTrans> list;
   int i = 1;
+  String urlIP = "https://192.168.1.19:45456";
   void initState() {
     super.initState();
     i = 1;
-    // getShipDetails(widget.custQuoteMasterID);
+
     setState(() {
       if (widget.custQuoteMasterID != null) activities = getAllActivities();
     });
@@ -39,8 +37,8 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
   Future<List<ListBillActTrans>> getAllActivities() async {
     try {
       int cqmID = widget.custQuoteMasterID;
-      var result = await http.get(
-          Uri.parse('https://192.168.1.9:45455/api/ListBillActTrans/$cqmID'));
+      var result =
+          await http.get(Uri.parse(urlIP + '/api/ListBillActTrans/$cqmID'));
       if (result.statusCode == 200) {
         List<ListBillActTrans> activities = (json.decode(result.body) as List)
             .map((i) => ListBillActTrans.fromJson(i))
@@ -67,28 +65,6 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
       return null;
     }
   }
-
-  /*Widget displayAllActivitiesWidget() {
-    return FutureBuilder(
-      builder: (context, snapShot) {
-        if (snapShot.connectionState == ConnectionState.none &&
-            snapShot.hasData == null) {
-          return Container();
-        }
-        return Expanded(
-            child: ListView.builder(
-          itemCount: snapShot.data?.length ?? 0,
-          itemBuilder: (context, index) {
-            ListBillActTrans activity = snapShot.data[index];
-
-            return BillableActivityDetailsExpander(
-                widget.userDetails, widget.custQuoteMasterID, activity);
-          },
-        ));
-      },
-      future: activities,
-    );
-  }*/
 
   @override
   Widget build(BuildContext context) {

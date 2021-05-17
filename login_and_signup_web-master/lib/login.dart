@@ -1,44 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:login_and_signup_web/Model/CustPerson.dart';
 import 'package:login_and_signup_web/constants.dart';
-import 'Model/UserDetails.dart';
+import 'Model/CustPerson.dart';
 import 'homescreen.dart';
 
 // ignore: must_be_immutable
 class LogIn extends StatefulWidget {
   final Function onSignUpSelected;
-  /*UserDetails userDetails = UserDetails(
-    userID: 1,
-    fullName: 'Aboli Shete',
-    userShortName: 'Aboli',
-    logonName: 'aboli',
-    password: 'aboli',
-    mobileNumber: '+919763911480',
-    // imeino: '67891',
-    //deviceID: '20',
-    isActive: true,
-  );*/
 
-  /* UserDetails userDetails = UserDetails(
-    userID: 3,
-    fullName: 'Aarya Mulaokar',
-    userShortName: 'Aarya',
-    logonName: 'aarya',
-    password: 'aarya',
-    mobileNumber: '9834431271',
-    // imeino: '67891',
-    //   //deviceID: '20',
-    //   isActive: true,
-  );*/
+  // Customer customer = Customer(
+  //   customerID: 1,
+  //   customerName: "shruti",
+  //   customerRef: "shruti",
+  //   isActive: true,
+  // );
   CustPerson custPerson = CustPerson(
-      custPersonID: 300000,
-      custPersonFullName: 'Aarya Mulaokar',
-      custPersonDesignation: 'Employee',
-      custPersonTelMob: '9834431271',
-      custPersonEmail: 'aaryamulaokar24@gmail.com',
       customerID: 1,
-      cPerUName: 'aarya',
-      cPerPwd: 'aarya');
+      custPersonID: 1,
+      custPersonFullName: "shruti",
+      custPersonDesignation: "customer",
+      custPersonTelMob: "8605150669",
+      custPersonEmail: "shrutishukla0987@gmail.com",
+      cPerUName: "shruti",
+      cPerPwd: "shruti",
+      isActive: true);
 
   LogIn({@required this.onSignUpSelected});
 

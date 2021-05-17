@@ -2,8 +2,6 @@ import 'dart:html';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:login_and_signup_web/Model/CustPerson.dart';
-
-import 'Model/UserDetails.dart';
 import 'VoyageFilesScreen.dart';
 import 'constants.dart';
 
@@ -102,8 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => VoyageFilesScreen(
-                                  widget.custPerson, null, null))),
+                              builder: (context) =>
+                                  VoyageFilesScreen(widget.custPerson, null))),
 
                       //do something
                     },
