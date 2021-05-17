@@ -31,7 +31,7 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
   final lubController = TextEditingController();
   final gasOilController = TextEditingController();
   final fwrobController = TextEditingController();
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   // hfoController.text = '123';
   // mdoController.text = '456';
   //lubController.text = '789';
@@ -441,7 +441,7 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
   final fwrobController = TextEditingController();
   DateTime now;
   DateTime date;
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   void initState() {
     super.initState();
 
@@ -840,7 +840,7 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
   final mdorecdController = TextEditingController();
   final gasOilRecdController = TextEditingController();
   final fwrecdController = TextEditingController();
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   void initState() {
     super.initState();
 

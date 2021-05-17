@@ -15,13 +15,13 @@ class LogIn extends StatefulWidget {
   // );
   CustPerson custPerson = CustPerson(
       customerID: 1,
-      custPersonID: 1,
-      custPersonFullName: "shruti",
-      custPersonDesignation: "customer",
-      custPersonTelMob: "8605150669",
-      custPersonEmail: "shrutishukla0987@gmail.com",
-      cPerUName: "shruti",
-      cPerPwd: "shruti",
+      custPersonID: 300000,
+      custPersonFullName: "aarya",
+      custPersonDesignation: "employee",
+      custPersonTelMob: "9834431271",
+      custPersonEmail: "aaryamulaokar24@gmail.com",
+      cPerUName: "aarya",
+      cPerPwd: "aarya",
       isActive: true);
 
   LogIn({@required this.onSignUpSelected});

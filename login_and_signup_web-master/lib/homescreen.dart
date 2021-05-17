@@ -2,7 +2,8 @@ import 'dart:html';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:login_and_signup_web/Model/CustPerson.dart';
-import 'VoyageFilesScreen.dart';
+import 'ClosedVoyageFilesScreen.dart';
+import 'OpenVoyageFilesScreen.dart';
 import 'constants.dart';
 
 // ignore: must_be_immutable
@@ -70,8 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                HomeScreen(widget.custPerson)),
+                            builder: (context) => ClosedVoyageFilesScreen(
+                                widget.custPerson, null)),
                       )
                       //do something
                     },
@@ -100,8 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  VoyageFilesScreen(widget.custPerson, null))),
+                              builder: (context) => OpenVoyageFilesScreen(
+                                  widget.custPerson, null))),
 
                       //do something
                     },

@@ -42,11 +42,21 @@ namespace AniDAAPI.Controllers
         }
         // to fetch voyage file according to vesselId
         // GET: api/ListVoyFile/Vessel/5
-        [HttpGet("Vessel/{id}")]
-        public IEnumerable<ListVoyFile> GetVesselId(int id)
+        [HttpGet("Vessel/closed/{id}")]
+        public IEnumerable<ListVoyFile> GetClosedVesselId(int id)
         {
 
-            var vesselId = _context.ListVoyFiles.Where(e => e.VesselId == id).ToList();
+            var vesselId = _context.ListVoyFiles.Where(e => e.VesselId == id && e.ApprovedVoyage == true && e.ClosedVoyage == true).ToList();
+
+            return vesselId;
+        }
+        // to fetch voyage file according to vesselId
+        // GET: api/ListVoyFile/Vessel/5
+        [HttpGet("Vessel/open/{id}")]
+        public IEnumerable<ListVoyFile> GetOpenedVesselId(int id)
+        {
+
+            var vesselId = _context.ListVoyFiles.Where(e => e.VesselId == id && e.ApprovedVoyage == false && e.Ordered == true && e.AssignedTo != null).ToList();
 
             return vesselId;
         }

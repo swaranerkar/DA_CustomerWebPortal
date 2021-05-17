@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Web',
+      title: 'Port Agency and Disbursement Accounting System – Customer Portal',
       theme: ThemeData(
         primaryColor: kPrimaryColor2,
         visualDensity: VisualDensity.adaptivePlatformDensity,

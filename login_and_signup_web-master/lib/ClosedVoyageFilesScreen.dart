@@ -15,17 +15,17 @@ import 'SOFActivity.dart';
 import 'main.dart';
 
 // ignore: must_be_immutable
-class VoyageFilesScreen extends StatefulWidget {
+class ClosedVoyageFilesScreen extends StatefulWidget {
   CustPerson custPerson;
   int custQuoteMasterID;
-  VoyageFilesScreen(CustPerson custPerson, int cqmID) {
+  ClosedVoyageFilesScreen(CustPerson custPerson, int cqmID) {
     this.custPerson = custPerson;
     this.custQuoteMasterID = cqmID;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return VoyageFilesScreenState();
+    return ClosedVoyageFilesScreenState();
   }
 }
 
@@ -34,10 +34,10 @@ class Constants {
   static const List<String> choices = [SignOut];
 }
 
-class VoyageFilesScreenState extends State<VoyageFilesScreen> {
+class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
   Future<List<CustPerShipLU>> custPerShipLU;
   List<ListVoyFiles> voyageFiles;
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   bool search = false;
   void initState() {
     super.initState();
@@ -78,8 +78,8 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
     List<ListVoyFiles> tmpx = [];
     try {
       for (CustPerShipLU file in tmp) {
-        var result = await http
-            .get(Uri.parse(urlIP + '/api/ListVoyFile/Vessel/${file.vesselID}'));
+        var result = await http.get(Uri.parse(
+            urlIP + '/api/ListVoyFile/Vessel/closed/${file.vesselID}'));
         if (result.statusCode == 200) {
           var t = (json.decode(result.body) as List);
           var c = t.map((i) => ListVoyFiles.fromJson(i));
@@ -106,6 +106,7 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(35.0), // here the desired height
             child: new AppBar(
+              title: Text('CLOSED VOYAGE FILES'),
               actions: <Widget>[
                 PopupMenuButton<String>(
                   onSelected: choiceAction,
@@ -271,7 +272,7 @@ class DataSearch extends SearchDelegate<String> {
   List<ListVoyFiles> files;
   ListVoyFiles currentFile;
   List<String> daRefs = [];
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   //List<String> daRefs;
   DataSearch(
       List<ListVoyFiles> files, int custQuoteMasterID, CustPerson custPerson) {
@@ -407,7 +408,7 @@ class DataSearch extends SearchDelegate<String> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VoyageFilesScreen(
+                          builder: (context) => ClosedVoyageFilesScreen(
                                 custPerson,
                                 currentFile.custQuoteMasterID,
                               )));
@@ -505,7 +506,7 @@ class _VoyFileListViewWidgetState extends State<VoyFileListViewWidget> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => VoyageFilesScreen(
+                  builder: (context) => ClosedVoyageFilesScreen(
                       widget.custPerson, widget.file.custQuoteMasterID)));
         },
       ),

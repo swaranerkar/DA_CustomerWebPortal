@@ -26,7 +26,7 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
   Future<List<SOFTrans>> activities;
   final dateFormat = new DateFormat('dd-MM-yyyy');
   List<SOFTrans> list;
-  String urlIP = "https://192.168.1.19:45456";
+  String urlIP = "https://192.168.1.9:45455";
   int i = 1;
   void initState() {
     super.initState();
