@@ -669,7 +669,6 @@ E:\Git Code\web_login\AniDAAPI\AniDAAPI\bin\Debug\net5.0\runtimes\win-x64\native
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\bin\Debug\net5.0\runtimes\win-x86\native\e_sqlite3.dll
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\Git Code\web_login\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.csprojAssemblyReference.cache
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.GeneratedMSBuildEditorConfig.editorconfig
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.AssemblyInfoInputs.cache
 E:\Git Code\web_login\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.AssemblyInfo.cs
@@ -857,3 +856,4 @@ C:\Users\Dell\Downloads\web_login-main\web_login-main\AniDAAPI\AniDAAPI\obj\Debu
 C:\Users\Dell\Downloads\web_login-main\web_login-main\AniDAAPI\AniDAAPI\obj\Debug\net5.0\ref\AniDAAPI.dll
 C:\Users\Dell\Downloads\web_login-main\web_login-main\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.pdb
 C:\Users\Dell\Downloads\web_login-main\web_login-main\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.genruntimeconfig.cache
+E:\Git Code\web_login\AniDAAPI\AniDAAPI\obj\Debug\net5.0\AniDAAPI.csprojAssemblyReference.cache

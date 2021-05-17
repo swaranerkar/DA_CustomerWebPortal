@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:login_and_signup_web/Model/CustPerson.dart';
 
 import 'Model/UserDetails.dart';
 import 'VoyageFilesScreen.dart';
@@ -8,9 +9,11 @@ import 'constants.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  UserDetails userDetails;
-  HomeScreen(UserDetails userDetails) {
-    this.userDetails = userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
+  HomeScreen(CustPerson custPerson) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
   }
 
   @override
@@ -40,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 40,
                   top: 30,
                   child: Text(
-                    "Welcome, " + widget.userDetails.fullName,
+                    "Welcome, " + widget.custPerson.custPersonFullName,
                     style: TextStyle(fontSize: 22, color: Colors.white),
                   ))
             ],
@@ -70,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                HomeScreen(widget.userDetails)),
+                                HomeScreen(widget.custPerson)),
                       )
                       //do something
                     },
@@ -99,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  VoyageFilesScreen(widget.userDetails, null))),
+                              builder: (context) => VoyageFilesScreen(
+                                  widget.custPerson, null, null))),
 
                       //do something
                     },

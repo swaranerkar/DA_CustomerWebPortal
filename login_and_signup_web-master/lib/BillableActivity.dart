@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'package:intl/intl.dart';
+import 'Model/CustPerson.dart';
 import 'Model/ListBillActTrans.dart';
 import 'Model/UserDetails.dart';
 import 'package:http/http.dart' as http;
@@ -9,10 +10,12 @@ import 'dart:convert';
 
 // ignore: must_be_immutable
 class BillableActivityWidget extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  BillableActivityWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  BillableActivityWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -37,7 +40,7 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
     try {
       int cqmID = widget.custQuoteMasterID;
       var result = await http.get(
-          Uri.parse('https://192.168.1.106:45455/api/ListBillActTrans/$cqmID'));
+          Uri.parse('https://192.168.1.9:45455/api/ListBillActTrans/$cqmID'));
       if (result.statusCode == 200) {
         List<ListBillActTrans> activities = (json.decode(result.body) as List)
             .map((i) => ListBillActTrans.fromJson(i))
@@ -98,9 +101,13 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
                 ? Container(
                     margin: EdgeInsets.all(10),
                     child: Text(
-                          "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
-                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)
-                           ,textAlign: TextAlign.center,))
+                      "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ))
                 : Container(),
             Card(
               margin: EdgeInsets.all(10),
@@ -113,7 +120,10 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
                 child: Text(
                   "BILLABLE ACTIVITIES",
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -230,8 +240,9 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
                         : list
                             .map((e) => DataRow(cells: [
                                   DataCell(Text((i++).toString())),
-                                 // DataCell(Text(e.vendorName)),
-                                  DataCell(Text(dateFormat.format(DateTime.parse(e.cqmtransDate)))),
+                                  // DataCell(Text(e.vendorName)),
+                                  DataCell(Text(dateFormat
+                                      .format(DateTime.parse(e.cqmtransDate)))),
                                   DataCell(Text(e.cqmtransTypeDesc)),
                                   DataCell(Text(e.vendorName)),
                                   DataCell(Text(e.qty.toString())),

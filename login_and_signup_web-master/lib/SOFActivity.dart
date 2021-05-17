@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'Model/CustPerson.dart';
 import 'Model/SOFMaster.dart';
 import 'Model/SOFTrans.dart';
 import 'Model/UserDetails.dart';
@@ -10,11 +11,13 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class SOFActivityWidget extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
 
-  SOFActivityWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  SOFActivityWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
 
@@ -24,7 +27,7 @@ class SOFActivityWidget extends StatefulWidget {
 
 class _SOFActivityWidgetState extends State<SOFActivityWidget> {
   Future<List<SOFTrans>> activities;
-   final dateFormat = new DateFormat('dd-MM-yyyy');
+  final dateFormat = new DateFormat('dd-MM-yyyy');
   List<SOFTrans> list;
   int i = 1;
   void initState() {
@@ -40,7 +43,7 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
   Future<List<SOFTrans>> getAllSOFActivities() async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/Softran/${widget.custQuoteMasterID}'));
+          'https://192.168.1.9:45455/api/Softran/${widget.custQuoteMasterID}'));
       if (result.statusCode == 200) {
         List<SOFTrans> activities = (json.decode(result.body) as List)
             .map((i) => SOFTrans.fromJson(i))
@@ -70,8 +73,7 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
   void fetchTypeDesc() async {
     List<SOFTrans> tmp = this.list;
     for (SOFTrans act in tmp) {
-      String url =
-          'https://192.168.1.106:45455/api/Sofmaster/${act.sofmasterID}';
+      String url = 'https://192.168.1.9:45455/api/Sofmaster/${act.sofmasterID}';
       http.Response res = await http.get(Uri.parse(url));
       print(res.statusCode);
       SOFMaster sofMaster = SOFMaster.fromJson(jsonDecode(res.body));
@@ -93,8 +95,10 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
               ? Container(
                   margin: EdgeInsets.all(10),
                   child: Text(
-                          "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
-                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),textAlign: TextAlign.center))
+                      "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center))
               : Container(),
           Card(
             margin: EdgeInsets.all(10),
@@ -163,7 +167,8 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
                       : list
                           .map((e) => DataRow(cells: [
                                 DataCell(Text((i++).toString())),
-                                DataCell(Text(dateFormat.format( DateTime.parse(e.softransDate)))),
+                                DataCell(Text(dateFormat
+                                    .format(DateTime.parse(e.softransDate)))),
                                 DataCell(Text((e.sofmasterDesc != null)
                                     ? e.sofmasterDesc
                                     : "")),

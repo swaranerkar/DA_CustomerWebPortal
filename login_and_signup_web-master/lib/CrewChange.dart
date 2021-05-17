@@ -4,15 +4,17 @@ import 'package:login_and_signup_web/constants.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'Model/CrewChange.dart';
+import 'Model/CustPerson.dart';
 import 'Model/UserDetails.dart';
 
 // ignore: must_be_immutable
 class CrewChangeWidget extends StatefulWidget {
-  UserDetails userDetails;
-
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  CrewChangeWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  CrewChangeWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -42,7 +44,7 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
   void getCrewChangeInfo(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/CrewChange/$custQuoteMasterID'));
+          'https://192.168.1.9:45455/api/CrewChange/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.crewChange = CrewChange.fromJson(jsonDecode(result.body));
@@ -88,8 +90,9 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
               ? Container(
                   margin: EdgeInsets.all(10),
                   child: Text(
-                          "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
-                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)))
+                      "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)))
               : Container(),
           Card(
             color: kPrimaryColor1,
@@ -262,7 +265,7 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
           ),
           // ),
 
-          CTMDeliveryWidget(widget.userDetails, widget.custQuoteMasterID),
+          CTMDeliveryWidget(widget.custPerson, widget.custQuoteMasterID),
         ],
       ),
     ));

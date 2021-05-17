@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:login_and_signup_web/Model/CustPerson.dart';
 import 'package:login_and_signup_web/Model/UserDetails.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'package:login_and_signup_web/homescreen.dart';
@@ -10,10 +11,12 @@ import 'Model/ListVoyFiles.dart';
 
 // ignore: must_be_immutable
 class ShipDetails extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  ShipDetails(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  ShipDetails(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
 
@@ -79,7 +82,7 @@ class _ShipDetailsState extends State<ShipDetails> {
   void getShipDetails(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/ListVoyFile/$custQuoteMasterID'));
+          'https://192.168.1.9:45455/api/ListVoyFile/$custQuoteMasterID'));
       print(custQuoteMasterID);
       if (result.statusCode == 200) {
         ListVoyFiles shipDetails =
@@ -141,11 +144,12 @@ class _ShipDetailsState extends State<ShipDetails> {
             child: Column(children: [
               (widget.custQuoteMasterID == null)
                   ? Container(
-                    margin: EdgeInsets.all(8),
+                      margin: EdgeInsets.all(8),
                       child: Text(
                           "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
-                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),textAlign: TextAlign.center)
-                         )
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center))
                   : Container(),
               Container(
                 child: Row(

@@ -1,14 +1,18 @@
 import 'dart:html';
+import 'dart:js_util';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:login_and_signup_web/Model/CustPerShipLU.dart';
 import 'package:login_and_signup_web/ShipDetails.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'BillableActivity.dart';
 import 'CrewChange.dart';
 import 'DataSheetPage.dart';
+import 'Model/CustPerson.dart';
 import 'Model/ListVoyFiles.dart';
 import 'Model/UserDetails.dart';
 import 'Model/VoyFileLookUp.dart';
@@ -17,15 +21,19 @@ import 'main.dart';
 
 // ignore: must_be_immutable
 class VoyageFilesScreen extends StatefulWidget {
+  int vesselID;
+  // UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  UserDetails userDetails;
-
   VoyageFilesScreen(
-    UserDetails userDetails,
-    int custQuoteMasterID,
-  ) {
+      //UserDetails userDetails,
+      CustPerson custPerson,
+      int vesselID,
+      int custQuoteMasterID) {
+    // this.userDetails = userDetails;
+    this.custPerson = custPerson;
+    this.vesselID = vesselID;
     this.custQuoteMasterID = custQuoteMasterID;
-    this.userDetails = userDetails;
   }
 
   @override
@@ -48,24 +56,26 @@ class VoyFileSearchResult {
 }
 
 class VoyageFilesScreenState extends State<VoyageFilesScreen> {
-  Future<List<VoyFileLookUp>> files;
+  Future<List<CustPerShipLU>> files;
   bool search = false;
   void initState() {
     super.initState();
-    files = getAllVoyFiles(widget.userDetails.userID);
+    files = getAllCustPerShipFiles(widget.custPerson.custPersonID);
+    // files= getAllCustPerShipLU(widget.custPerson.custpersonId)
   }
 
-  Future<List<VoyFileLookUp>> getAllVoyFiles(int userID) async {
+  //fetch all the custpership details acc to custperid
+  Future<List<CustPerShipLU>> getAllCustPerShipFiles(int custID) async {
     try {
       var result = await http.get(
-          Uri.parse('https://192.168.1.106:45455/api/VoyFileLookUp/$userID'));
+          Uri.parse('https://192.168.1.9:45455/api/CustPerShipLU/$custID'));
 
       if (result.statusCode == 200) {
         var t = (json.decode(result.body) as List);
-        var c = t.map((i) => VoyFileLookUp.fromJson(i));
+        var c = t.map((i) => CustPerShipLU.fromJson(i));
 
-        List<VoyFileLookUp> voyFiles = c.toList();
-        return voyFiles;
+        List<CustPerShipLU> custShip = c.toList();
+        return custShip;
       } else {
         throw Exception('Failed to load voyage files');
       }
@@ -128,17 +138,18 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
                         width: 40,
                         color: Colors.white,
                         child: ListTile(
-                            title: Text(
-                              'Search',
-                              style: TextStyle(color: Colors.grey[400]),
-                            ),
-                            trailing: Icon(Icons.search),
-                            onTap: () => {
+                          title: Text(
+                            'Search',
+                            style: TextStyle(color: Colors.grey[400]),
+                          ),
+                          trailing: Icon(Icons.search),
+                          /* onTap: () => {
                                   showSearch(
                                       context: context,
                                       delegate:
                                           DataSearch(files, widget.userDetails))
-                                }),
+                                }*/
+                        ),
                       ),
                     ]),
                   ),
@@ -147,8 +158,7 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
               body: // Column(
                   //children: [
                   //FloatingSearchBar(),
-                  VoyFilePageWidget(
-                      widget.userDetails, files, widget.custQuoteMasterID),
+                  VoyFilePageWidget(widget.custPerson, files, widget.vesselID),
               //  ],
               //)
             ),
@@ -157,7 +167,7 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
               flex: 8,
               child: SizedBox(
                 child: DisplayVoyageFilesScreen(
-                    widget.userDetails, widget.custQuoteMasterID),
+                    widget.custPerson, widget.custQuoteMasterID),
               ))
         ]));
   }
@@ -165,11 +175,13 @@ class VoyageFilesScreenState extends State<VoyageFilesScreen> {
 
 // ignore: must_be_immutable
 class DisplayVoyageFilesScreen extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
 
-  DisplayVoyageFilesScreen(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  DisplayVoyageFilesScreen(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
 
@@ -241,19 +253,19 @@ class DisplayVoyageFilesScreenState extends State<DisplayVoyageFilesScreen> {
           ),
           body: new TabBarView(
             children: <Widget>[
-              ShipDetails(widget.userDetails, widget.custQuoteMasterID),
-              DataSheetPageWidget(widget.userDetails, widget.custQuoteMasterID),
+              ShipDetails(widget.custPerson, widget.custQuoteMasterID),
+              DataSheetPageWidget(widget.custPerson, widget.custQuoteMasterID),
               BillableActivityWidget(
-                  widget.userDetails, widget.custQuoteMasterID),
-              SOFActivityWidget(widget.userDetails, widget.custQuoteMasterID),
-              CrewChangeWidget(widget.userDetails, widget.custQuoteMasterID),
+                  widget.custPerson, widget.custQuoteMasterID),
+              SOFActivityWidget(widget.custPerson, widget.custQuoteMasterID),
+              CrewChangeWidget(widget.custPerson, widget.custQuoteMasterID),
             ],
           ),
         ));
   }
 }
 
-class DataSearch extends SearchDelegate<String> {
+/*class DataSearch extends SearchDelegate<String> {
   UserDetails userDetails;
   int custQuoteMasterID;
   Future<List<VoyFileLookUp>> files;
@@ -271,7 +283,7 @@ class DataSearch extends SearchDelegate<String> {
   Future<String> getVoyFileDARef(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/ListVoyFile/$custQuoteMasterID'));
+          'https://192.168.1.8:45455/api/ListVoyFile/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         ListVoyFiles file = ListVoyFiles.fromJson(jsonDecode(result.body));
         return file.dareference;
@@ -421,19 +433,89 @@ class DataSearch extends SearchDelegate<String> {
             itemCount: suggestionList.length,
           );
   }
+}*/
+
+// ignore: must_be_immutable
+/*class VoyageFiles extends StatefulWidget {
+  // UserDetails userDetails;
+  CustPerson custPerson;
+  Future<List<CustPerShipLU>> files;
+  int vesselID;
+  int custQuoteMasterID;
+
+  VoyageFiles(
+    //UserDetails userDetails,
+    CustPerson custPerson,
+    Future<List<CustPerShipLU>> x,
+    int vesselID,
+    int custQuoteMasterID,
+  ) {
+    // this.userDetails = userDetails;
+    this.custPerson = custPerson;
+    this.files = x;
+    this.vesselID = vesselID;
+    this.custQuoteMasterID = custQuoteMasterID;
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return VoyageFilesState();
+  }
 }
+
+class VoyageFilesState extends State<VoyageFiles> {
+  Future<List<ListVoyFiles>> file;
+  //bool search = false;
+  void initState() {
+    super.initState();
+    file = getAllFiles(widget.vesselID);
+    // files= getAllCustPerShipLU(widget.custPerson.custpersonId)
+  }
+
+  //fetch all the custpership details acc to custperid
+  Future<List<ListVoyFiles>> getAllFiles(int vID) async {
+    try {
+      var result = await http.get(
+          Uri.parse('https://192.168.1.9:45455/api/ListVoyFile/Vessel/$vID'));
+
+      if (result.statusCode == 200) {
+        var t = (json.decode(result.body) as List);
+        var c = t.map((i) => ListVoyFiles.fromJson(i));
+
+        List<ListVoyFiles> custShip = c.toList();
+        return custShip;
+      } else {
+        throw Exception('Failed to load voyage files');
+      }
+    } catch (Exception) {
+      print(Exception.toString());
+      print('Failed to fetch voyage files.Conection failed!');
+      return null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return VoyFilePageWidget(widget.custPerson, file, widget.custQuoteMasterID);
+    //  ],
+    //)
+  }
+}*/
 
 // ignore: must_be_immutable
 class VoyFilePageWidget extends StatefulWidget {
-  UserDetails userDetails;
-  int selectedCustQuoteMasterID;
+  //UserDetails userDetails;
+  CustPerson custPerson;
+  int selectedvesselID;
   // ignore: non_constant_identifier_names
-  Future<List<VoyFileLookUp>> files;
-  VoyFilePageWidget(UserDetails userDetails, Future<List<VoyFileLookUp>> x,
-      int selectedCustQuoteMasterID) {
-    this.userDetails = userDetails;
+  Future<List<CustPerShipLU>> files;
+  //Future<List<CustPerShipLU>> files;
+  VoyFilePageWidget(CustPerson custPerson, Future<List<CustPerShipLU>> x,
+      int selectedvesselID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.files = x;
-    this.selectedCustQuoteMasterID = selectedCustQuoteMasterID;
+    this.selectedvesselID = selectedvesselID;
   }
   @override
   _VoyFilePageWidgetState createState() => _VoyFilePageWidgetState();
@@ -452,13 +534,12 @@ class _VoyFilePageWidgetState extends State<VoyFilePageWidget> {
           shrinkWrap: true,
           itemCount: snapShot.data?.length ?? 0,
           itemBuilder: (context, index) {
-            VoyFileLookUp file = snapShot.data[index];
+            CustPerShipLU file = snapShot.data[index];
             return VoyFileListViewWidget(
-                widget.userDetails,
+                widget.custPerson,
                 file,
-                (widget.selectedCustQuoteMasterID != null &&
-                    file.custQuoteMasterID ==
-                        widget.selectedCustQuoteMasterID));
+                (widget.selectedvesselID != null &&
+                    file.vesselID == widget.selectedvesselID));
           },
         ));
       },
@@ -476,12 +557,14 @@ class _VoyFilePageWidgetState extends State<VoyFilePageWidget> {
 
 // ignore: must_be_immutable
 class VoyFileListViewWidget extends StatefulWidget {
-  VoyFileLookUp file;
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
+  CustPerShipLU file;
   bool selected = false;
   VoyFileListViewWidget(
-      UserDetails userDetails, VoyFileLookUp file, bool selected) {
-    this.userDetails = userDetails;
+      CustPerson custPerson, CustPerShipLU file, bool selected) {
+    // this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.file = file;
     this.selected = selected;
   }
@@ -493,23 +576,38 @@ class _VoyFileListViewWidgetState extends State<VoyFileListViewWidget> {
   // ignore: non_constant_identifier_names
   String DARef;
   int custQuoteMasterID;
+  int vesselId;
+  // Future<List<ListVoyFiles>> files;
 
   void initState() {
     super.initState();
     getVoyFileDARef(widget.file);
   }
 
-  void getVoyFileDARef(VoyFileLookUp f) async {
-    int id = f.custQuoteMasterID;
+  void getVoyFileDARef(CustPerShipLU f) async {
+    int id = f.vesselID;
+    //int cid = f.custQuoteMasterID;
     try {
-      var result = await http
-          .get(Uri.parse('https://192.168.1.106:45455/api/ListVoyFile/$id'));
+      var result = await http.get(
+          Uri.parse('https://192.168.1.9:45455/api/ListVoyFile/Vessel/$id'));
       if (result.statusCode == 200) {
-        ListVoyFiles file = ListVoyFiles.fromJson(jsonDecode(result.body));
-        setState(() {
-          this.DARef = file.dareference;
-          this.custQuoteMasterID = file.custQuoteMasterID;
-        });
+        //ListVoyFiles file = ListVoyFiles.fromJson(jsonDecode(result.body));
+        // setState(() {
+        // this.DARef = file.dareference;
+        // this.custQuoteMasterID = file.custQuoteMasterID;
+        // });
+        var t = (json.decode(result.body) as List);
+        var c = t.map((i) => ListVoyFiles.fromJson(i));
+        //ListVoyFiles file = ListVoyFiles.fromJson(jsonDecode(result.body));
+        List<ListVoyFiles> custShip = c.toList();
+        for (int i = 0; i < custShip.length; i++) {
+          ListVoyFiles file = custShip[i];
+          setState(() {
+            this.DARef = file.dareference;
+            this.custQuoteMasterID = file.custQuoteMasterID;
+            this.vesselId = file.vesselID;
+          });
+        }
       } else {
         throw Exception('Failed to fetch DA Reference');
       }
@@ -537,7 +635,7 @@ class _VoyFileListViewWidgetState extends State<VoyFileListViewWidget> {
               context,
               MaterialPageRoute(
                   builder: (context) => VoyageFilesScreen(
-                      widget.userDetails, custQuoteMasterID)));
+                      widget.custPerson, vesselId, custQuoteMasterID)));
         },
       ),
     );

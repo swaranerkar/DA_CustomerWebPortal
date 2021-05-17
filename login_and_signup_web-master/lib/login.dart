@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_and_signup_web/Model/CustPerson.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'Model/UserDetails.dart';
 import 'homescreen.dart';
@@ -6,7 +7,7 @@ import 'homescreen.dart';
 // ignore: must_be_immutable
 class LogIn extends StatefulWidget {
   final Function onSignUpSelected;
-  UserDetails userDetails = UserDetails(
+  /*UserDetails userDetails = UserDetails(
     userID: 1,
     fullName: 'Aboli Shete',
     userShortName: 'Aboli',
@@ -16,19 +17,28 @@ class LogIn extends StatefulWidget {
     // imeino: '67891',
     //deviceID: '20',
     isActive: true,
-  );
+  );*/
 
-  // UserDetails userDetails = UserDetails(
-  //   userID: 1,
-  //   fullName: 'Aarya Mulaokar',
-  //   userShortName: 'Aarya',
-  //   logonName: 'aarya',
-  //   password: 'aarya',
-  //   mobileNumber: '9834431271',
-  //   // imeino: '67891',
-  //   //deviceID: '20',
-  //   isActive: true,
-  // );
+  /* UserDetails userDetails = UserDetails(
+    userID: 3,
+    fullName: 'Aarya Mulaokar',
+    userShortName: 'Aarya',
+    logonName: 'aarya',
+    password: 'aarya',
+    mobileNumber: '9834431271',
+    // imeino: '67891',
+    //   //deviceID: '20',
+    //   isActive: true,
+  );*/
+  CustPerson custPerson = CustPerson(
+      custPersonID: 300000,
+      custPersonFullName: 'Aarya Mulaokar',
+      custPersonDesignation: 'Employee',
+      custPersonTelMob: '9834431271',
+      custPersonEmail: 'aaryamulaokar24@gmail.com',
+      customerID: 1,
+      cPerUName: 'aarya',
+      cPerPwd: 'aarya');
 
   LogIn({@required this.onSignUpSelected});
 
@@ -42,7 +52,7 @@ class _LogInState extends State<LogIn> {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.only(left:150,right:150, top:100,bottom:40),
+      padding: EdgeInsets.only(left: 150, right: 150, top: 100, bottom: 40),
       child: Center(
         child: Card(
           elevation: 4,
@@ -121,7 +131,7 @@ class _LogInState extends State<LogIn> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    HomeScreen(widget.userDetails)),
+                                    HomeScreen(widget.custPerson)),
                           )
                           //do something
                         },

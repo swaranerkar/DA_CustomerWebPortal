@@ -5,16 +5,18 @@ import 'package:login_and_signup_web/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'Model/ArrivalInfo.dart';
 import 'Model/BunkerInfo.dart';
+import 'Model/CustPerson.dart';
 import 'Model/DepartureInfo.dart';
 import 'Model/UserDetails.dart';
 
 // ignore: must_be_immutable
 class ArrivalInfoWidget extends StatefulWidget {
-  UserDetails userDetails;
-
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  ArrivalInfoWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  ArrivalInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -51,7 +53,7 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
   void getArrivalInfo(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/ArrivalInfoes/Arrival/$custQuoteMasterID'));
+          'https://192.168.1.9:45455/api/ArrivalInfoes/Arrival/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.arrivalInfo = ArrivalInfo.fromJson(jsonDecode(result.body));
@@ -87,9 +89,11 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
             (widget.custQuoteMasterID == null)
                 ? Container(
                     margin: EdgeInsets.all(10),
-                    child:Text(
-                          "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
-                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),textAlign: TextAlign.center))
+                    child: Text(
+                        "NO VOYAGE FILE SELECTED. PLEASE SELECT A FILE TO VIEW DETAILS.",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center))
                 : Container(),
             Card(
               color: kPrimaryColor1,
@@ -133,44 +137,43 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                       Row(children: [ Expanded( child:
-                         Container(
-                          //height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: hfoController,
-                            enabled: false,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                // overflow: TextOverflow.ellipsis,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                             
-                                fontSize: 16),
-                          ),
-                         )
-                        ),
-                          Expanded( child:Container(
-                            margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                            child: 
-                             (widget.custQuoteMasterID == null)
-              ?Container():Text(
-                               
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                           
-              ),
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            //height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: hfoController,
+                              enabled: false,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  // overflow: TextOverflow.ellipsis,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                  ),
                           ))
-                          ]),
+                        ]),
                       ],
                     ),
                   ),
@@ -197,36 +200,40 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                       Row(children:[ Expanded(child: Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: mdoController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                       
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: mdoController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -253,38 +260,41 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                           textAlign: TextAlign.left,
                         ),
                       ),
-                      Row(children:[ Expanded(child:
-                      Container(
-                        height: 50,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                        child: TextField(
-                          controller: lubController,
-                          decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none),
-                          enabled: false,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w300,
-                           
-                              fontSize: 16),
-                        ),
-                      )),
-                       Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'Litres',
-                            overflow: TextOverflow.ellipsis,
+                      Row(children: [
+                        Expanded(
+                            child: Container(
+                          height: 50,
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                          child: TextField(
+                            controller: lubController,
+                            decoration: new InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none),
+                            enabled: false,
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16),
                           ),
-                          ))])
+                        )),
+                        Expanded(
+                            child: Container(
+                          child: (widget.custQuoteMasterID == null)
+                              ? Container()
+                              : Text(
+                                  'Litres',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal),
+                                  textAlign: TextAlign.left,
+                                ),
+                        ))
+                      ])
                     ],
                   ),
                 )),
@@ -310,37 +320,41 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: gasOilController,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            enabled: false,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                             
-                                fontSize: 16),
-                          ),
-                        )),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: gasOilController,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              enabled: false,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -367,37 +381,41 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: fwrobController,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            enabled: false,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                              
-                                fontSize: 16),
-                          ),
-                        )),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: fwrobController,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              enabled: false,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -411,10 +429,12 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
 
 // ignore: must_be_immutable
 class DepartureInfoWidget extends StatefulWidget {
-  UserDetails userDetails;
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  DepartureInfoWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  DepartureInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -448,7 +468,7 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
   void getDepartureInfo(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/ArrivalInfoes/Departure/$custQuoteMasterID'));
+          'https://192.168.1.9:45455/api/ArrivalInfoes/Departure/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.departureInfo = DepartureInfo.fromJson(jsonDecode(result.body));
@@ -521,37 +541,41 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: hfoController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                             
-                                fontSize: 16),
-                          ),
-                        )),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: hfoController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -578,37 +602,41 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: mdoController,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            enabled: _isEnabled,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                              
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: mdoController,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              enabled: _isEnabled,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -635,37 +663,41 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
                           textAlign: TextAlign.left,
                         ),
                       ),
-                      Row(children:[Expanded(child:Container(
-                        height: 50,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                        child: TextField(
-                          controller: lubController,
-                          enabled: _isEnabled,
-                          decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w300,
-                           
-                              fontSize: 16),
-                        ),)
-
-                      ), Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'Litres',
-                            overflow: TextOverflow.ellipsis,
+                      Row(children: [
+                        Expanded(
+                            child: Container(
+                          height: 50,
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                          child: TextField(
+                            controller: lubController,
+                            enabled: _isEnabled,
+                            decoration: new InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none),
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16),
                           ),
-                          ))])
+                        )),
+                        Expanded(
+                            child: Container(
+                          child: (widget.custQuoteMasterID == null)
+                              ? Container()
+                              : Text(
+                                  'Litres',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal),
+                                  textAlign: TextAlign.left,
+                                ),
+                        ))
+                      ])
                     ],
                   ),
                 )),
@@ -691,37 +723,41 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: gasOilController,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            enabled: _isEnabled,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                               
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: gasOilController,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              enabled: _isEnabled,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -748,37 +784,41 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: fwrobController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                           
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: fwrobController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -792,11 +832,12 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
 
 // ignore: must_be_immutable
 class BunkerInfoWidget extends StatefulWidget {
-  UserDetails userDetails;
-
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  BunkerInfoWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  BunkerInfoWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -827,7 +868,7 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
   void getBunkerInfo(int custQuoteMasterID) async {
     try {
       var result = await http.get(Uri.parse(
-          'https://192.168.1.106:45455/api/BunkerInfo/$custQuoteMasterID'));
+          'https://192.168.1.9:45455/api/BunkerInfo/$custQuoteMasterID'));
       if (result.statusCode == 200) {
         setState(() {
           this.bunkerInfo = BunkerInfo.fromJson(jsonDecode(result.body));
@@ -899,38 +940,42 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: hforecdController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            // maxLengthEnforced: true,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                              
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: hforecdController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              // maxLengthEnforced: true,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -957,37 +1002,41 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: mdorecdController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                             
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: mdorecdController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -1014,36 +1063,41 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: gasOilRecdController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                              
-                                fontSize: 16),
-                          ),)
-                        ), Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: gasOilRecdController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -1070,37 +1124,41 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        Row(children:[Expanded(child:Container(
-                          height: 50,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                          child: TextField(
-                            controller: fwrecdController,
-                            enabled: _isEnabled,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none),
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300,
-                              
-                                fontSize: 16),
-                          ),)
-                        ),
-                         Expanded( child:Container(
-                            child: 
-                           (widget.custQuoteMasterID == null)
-              ?Container(): Text(
-                            'MT',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.left,
-                          ),
-                          ))])
+                        Row(children: [
+                          Expanded(
+                              child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: TextField(
+                              controller: fwrecdController,
+                              enabled: _isEnabled,
+                              decoration: new InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16),
+                            ),
+                          )),
+                          Expanded(
+                              child: Container(
+                            child: (widget.custQuoteMasterID == null)
+                                ? Container()
+                                : Text(
+                                    'MT',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.left,
+                                  ),
+                          ))
+                        ])
                       ],
                     ),
                   ),
@@ -1114,11 +1172,12 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
 
 // ignore: must_be_immutable
 class DataSheetPageWidget extends StatefulWidget {
-  UserDetails userDetails;
-
+  //UserDetails userDetails;
+  CustPerson custPerson;
   int custQuoteMasterID;
-  DataSheetPageWidget(UserDetails userDetails, int custQuoteMasterID) {
-    this.userDetails = userDetails;
+  DataSheetPageWidget(CustPerson custPerson, int custQuoteMasterID) {
+    //this.userDetails = userDetails;
+    this.custPerson = custPerson;
     this.custQuoteMasterID = custQuoteMasterID;
   }
   @override
@@ -1143,16 +1202,16 @@ class _DataSheetPageWidgetState extends State<DataSheetPageWidget> {
           children: [
             //Flexible(
             //child:
-            ArrivalInfoWidget(widget.userDetails, widget.custQuoteMasterID),
+            ArrivalInfoWidget(widget.custPerson, widget.custQuoteMasterID),
             // ),
             //Flexible(
             // child:
-            BunkerInfoWidget(widget.userDetails, widget.custQuoteMasterID)
+            BunkerInfoWidget(widget.custPerson, widget.custQuoteMasterID)
             //),
             ,
             //  Flexible(
             //child:
-            DepartureInfoWidget(widget.userDetails, widget.custQuoteMasterID)
+            DepartureInfoWidget(widget.custPerson, widget.custQuoteMasterID)
             //),
           ],
 

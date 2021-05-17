@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Downloads\\web_login-main\\web_login-main\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {}
+    "E:\\Git Code\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Downloads\\web_login-main\\web_login-main\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {
+    "E:\\Git Code\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Downloads\\web_login-main\\web_login-main\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
+        "projectUniqueName": "E:\\Git Code\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
         "projectName": "AniDAAPI",
-        "projectPath": "C:\\Users\\Dell\\Downloads\\web_login-main\\web_login-main\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Downloads\\web_login-main\\web_login-main\\AniDAAPI\\AniDAAPI\\obj\\",
+        "projectPath": "E:\\Git Code\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\Git Code\\web_login\\AniDAAPI\\AniDAAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -101,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

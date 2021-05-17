@@ -25,12 +25,12 @@ namespace AniDAAPI.Models
         public virtual DbSet<Softran> Softrans { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<VoyFileLookUp> VoyFileLookUps { get; set; }
-
         public virtual DbSet<ListBillActTrans> ListBillActTrans { get; set; }
         public virtual DbSet<ListDAActType> ListDAActType { get; set; }
-
         public virtual DbSet<ListVendors> ListVendors { get; set; }
-
+        public virtual DbSet<CustPerson> CustPerson { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustPerShipLU> CustPerShipLU { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -426,6 +426,76 @@ namespace AniDAAPI.Models
 
             });
 
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                //entity.HasKey(e => e.CqmtransId);
+                entity.ToTable("Customer");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.CustomerName).HasColumnName("CustomerName");
+
+                entity.Property(e => e.CustomerRef).HasColumnName("CustomerRef");
+
+                entity.Property(e => e.isActive).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.LastUpdatedBy).HasColumnName("LastUpdatedBy");
+
+                entity.Property(e => e.LastUpdatedDt)
+                     .HasColumnType("smalldatetime")
+                     .HasColumnName("LastUpdatedDT");
+
+            });
+
+            modelBuilder.Entity<CustPerson>(entity =>
+            {
+                entity.HasKey(e => e.CustPersonId);
+                entity.ToTable("CustPerson");
+
+                entity.Property(e => e.CustPersonId).HasColumnName("CustPersonID");
+
+                entity.Property(e => e.CustPersonFullName).HasColumnName("CustPersonFullName");
+
+                entity.Property(e => e.CustPersonDesignation).HasColumnName("CustPersonDesignation");
+
+                entity.Property(e => e.CustPersonTelMob).HasColumnName("CustPersonTelMob");
+
+                entity.Property(e => e.CustPersonEmail).HasColumnName("CustPersonEmail");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.CPerUName).HasColumnName("CPerUName");
+
+                entity.Property(e => e.CPerPwd).HasColumnName("CPerPwd");
+
+                entity.Property(e => e.isActive).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.LastUpdatedBy).HasColumnName("LastUpdatedBy");
+
+                entity.Property(e => e.LastUpdatedDt)
+                     .HasColumnType("smalldatetime")
+                     .HasColumnName("LastUpdatedDT");
+
+            });
+
+            modelBuilder.Entity<CustPerShipLU>(entity =>
+            {
+                entity.HasKey(e => e.CustPersonShipLUId);
+                entity.ToTable("CustPerShipLU");
+
+                entity.Property(e => e.CustPersonShipLUId).HasColumnName("CustPersonShipLUID");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.CustPersonId).HasColumnName("CustPersonID");
+
+                entity.Property(e => e.VesselId).HasColumnName("VesselID");
+
+                entity.Property(e => e.LastUpdateBy).HasColumnName("LastUpdateBy");
+
+                entity.Property(e => e.LastUpdatedDt).HasColumnName("LastUpdatedDT");
+
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

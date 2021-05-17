@@ -40,6 +40,26 @@ namespace AniDAAPI.Controllers
 
             return listVoyFile;
         }
+        // to fetch voyage file according to vesselId
+        // GET: api/ListVoyFile/Vessel/5
+        [HttpGet("Vessel/{id}")]
+        public IEnumerable<ListVoyFile> GetVesselId(int id)
+        {
+
+            var vesselId = _context.ListVoyFiles.Where(e => e.VesselId == id).ToList();
+
+            return vesselId;
+        }
+        // this api is to fetch voyage file with vesselID and CustQuoteMasterId
+        // GET: api/ListVoyFile/file/5/1
+        [HttpGet("file/{id}/{cid}")]
+        public IEnumerable<ListVoyFile> GetFile(int id, int cid)
+        {
+
+            var file = _context.ListVoyFiles.Where(e => e.VesselId == id && e.CustQuoteMasterId == cid).ToList();
+
+            return file;
+        }
 
         // PUT: api/ListVoyFile/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
