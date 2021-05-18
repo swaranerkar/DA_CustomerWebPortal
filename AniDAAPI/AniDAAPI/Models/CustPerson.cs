@@ -15,8 +15,8 @@ namespace AniDAAPI.Models
         public int CustomerId { get; set; }
         public String CPerUName { get; set; }
         public String CPerPwd { get; set; }
-        public bool isActive { get; set; }
-        public int LastUpdatedBy { get; set; }
+        public bool? IsActive { get; set; }
+        public int? LastUpdatedBy { get; set; }
         public DateTime? LastUpdatedDt { get; set; }
     }
 }

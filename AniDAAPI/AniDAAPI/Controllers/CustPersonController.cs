@@ -41,9 +41,24 @@ namespace AniDAAPI.Controllers
 
             return custPersonDetail;
         }
-        
+
+        [HttpGet("login/{uname}/{pswd}")]
+        public async Task<ActionResult<CustPerson>> GetFile(String uname, String pswd)
+        {
+
+            var file = await _context.CustPerson.Where(e => e.CPerUName.Equals(uname) && e.CPerPwd.Equals(pswd)).FirstOrDefaultAsync();
+             //await _context.CustPerson.FindAsync(id);
+
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            return file;
+        }
 
 
-        
+
+
     }
 }

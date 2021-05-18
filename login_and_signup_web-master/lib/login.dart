@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:login_and_signup_web/OtpPage.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'Model/CustPerson.dart';
 import 'homescreen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class LogIn extends StatefulWidget {
@@ -13,7 +17,7 @@ class LogIn extends StatefulWidget {
   //   customerRef: "shruti",
   //   isActive: true,
   // );
-  CustPerson custPerson = CustPerson(
+  /* CustPerson custPerson = CustPerson(
       customerID: 1,
       custPersonID: 300000,
       custPersonFullName: "aarya",
@@ -22,7 +26,7 @@ class LogIn extends StatefulWidget {
       custPersonEmail: "aaryamulaokar24@gmail.com",
       cPerUName: "aarya",
       cPerPwd: "aarya",
-      isActive: true);
+      isActive: true);*/
 
   LogIn({@required this.onSignUpSelected});
 
@@ -31,6 +35,49 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  // ignore: non_constant_identifier_names
+  final UserNameController = TextEditingController();
+  // ignore: non_constant_identifier_names
+  final PasswordController = TextEditingController();
+  bool _isHidden = true;
+
+  void authUser(String uname, String pswd) async {
+    String url = 'https://192.168.1.9:45455/api/CustPerson/login/$uname/$pswd';
+    var res = await http.get(Uri.parse(url));
+    // print("OTP sent response code:");
+    //  print(res.statusCode);
+    //  print(res.headers);
+    // setState(() {
+    //   this.rawCookie = res.headers['set-cookie'];
+    //  });
+
+    String result = "Success";
+    if (res.statusCode == 200) {
+      CustPerson custPerson = CustPerson.fromJson(jsonDecode(res.body));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(custPerson))); //userID)))
+
+    } else {
+      print('Invalid Credentials');
+      Fluttertoast.showToast(
+          msg: "Failed to login, please check username and password!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: const Color(0xffD09FA6),
+          textColor: Colors.white,
+          fontSize: 15.0);
+    }
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -78,6 +125,7 @@ class _LogInState extends State<LogIn> {
                         height: 32,
                       ),
                       TextField(
+                        controller: UserNameController,
                         decoration: InputDecoration(
                           hintText: 'Username',
                           labelText: 'Username',
@@ -90,11 +138,21 @@ class _LogInState extends State<LogIn> {
                         height: 32,
                       ),
                       TextField(
+                        controller: PasswordController,
+                        obscureText: _isHidden,
                         decoration: InputDecoration(
                           hintText: 'Password',
                           labelText: 'Password',
                           suffixIcon: Icon(
-                            Icons.lock_outline,
+                            Icons.lock,
+                          ),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
                           ),
                         ),
                       ),
@@ -111,13 +169,24 @@ class _LogInState extends State<LogIn> {
                           borderRadius: new BorderRadius.circular(18.0),
                         ),
                         onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeScreen(widget.custPerson)),
-                          )
-                          //do something
+                          if (UserNameController.text != "" &&
+                              PasswordController.text != "")
+                            {
+                              authUser(UserNameController.text,
+                                  PasswordController.text)
+                            }
+                          else
+                            {
+                              print('Invalid'),
+                              Fluttertoast.showToast(
+                                  msg: "Please enter all required fields!",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: const Color(0xffD09FA6),
+                                  textColor: Colors.white,
+                                  fontSize: 15.0)
+                            }
                         },
                         child: new Text("LOGIN"),
                       ),

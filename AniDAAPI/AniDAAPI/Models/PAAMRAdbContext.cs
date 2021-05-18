@@ -454,21 +454,21 @@ namespace AniDAAPI.Models
 
                 entity.Property(e => e.CustPersonId).HasColumnName("CustPersonID");
 
-                entity.Property(e => e.CustPersonFullName).HasColumnName("CustPersonFullName");
+                entity.Property(e => e.CustPersonFullName).HasMaxLength(150).HasColumnName("CustPersonFullName");
 
-                entity.Property(e => e.CustPersonDesignation).HasColumnName("CustPersonDesignation");
+                entity.Property(e => e.CustPersonDesignation).HasMaxLength(150).HasColumnName("CustPersonDesignation");
 
-                entity.Property(e => e.CustPersonTelMob).HasColumnName("CustPersonTelMob");
+                entity.Property(e => e.CustPersonTelMob).HasMaxLength(50).HasColumnName("CustPersonTelMob");
 
-                entity.Property(e => e.CustPersonEmail).HasColumnName("CustPersonEmail");
+                entity.Property(e => e.CustPersonEmail).HasMaxLength(250).HasColumnName("CustPersonEmail");
 
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+                entity.Property(e => e.CustomerId).IsRequired().HasColumnName("CustomerID");
 
-                entity.Property(e => e.CPerUName).HasColumnName("CPerUName");
+                entity.Property(e => e.CPerUName).HasMaxLength(150).HasColumnName("CPerUName");
 
-                entity.Property(e => e.CPerPwd).HasColumnName("CPerPwd");
+                entity.Property(e => e.CPerPwd).HasMaxLength(50).HasColumnName("CPerPwd");
 
-                entity.Property(e => e.isActive).HasDefaultValueSql("((1))");
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.LastUpdatedBy).HasColumnName("LastUpdatedBy");
 
