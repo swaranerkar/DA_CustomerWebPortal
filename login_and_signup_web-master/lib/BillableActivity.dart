@@ -24,7 +24,7 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
   final dateFormat = new DateFormat('dd-MM-yyyy');
   List<ListBillActTrans> list;
   int i = 1;
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.19:45455";
   void initState() {
     super.initState();
     i = 1;

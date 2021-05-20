@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.Swagger;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace AniDAAPI
 {
@@ -32,6 +33,7 @@ namespace AniDAAPI
         }
 
         public IConfiguration Configuration { get; }
+        public string MyAllowSpecificOrigins { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,9 +44,9 @@ namespace AniDAAPI
             });
 
 
-
+            MyAllowSpecificOrigins = "MyPolicy";
             var connection = Configuration.GetConnectionString("PAAMRAdbContextConnStr");
-
+            services.AddMemoryCache();
             services.AddDbContextPool<PAAMRAdbContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,6 +56,7 @@ namespace AniDAAPI
             //ConfigureSwagger(services);
 
             //FirebaseApp.Create();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +87,9 @@ namespace AniDAAPI
             {
                 endpoints.MapControllers();
             });
+
+           
+
         }
     }
 }

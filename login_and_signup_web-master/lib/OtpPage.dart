@@ -11,31 +11,23 @@ import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class OtpPage extends StatefulWidget {
-  //final Function onSignUpSelected;
-  // CustPerson custPerson;
   String emailID;
   String uName;
-  String rawCookie;
-  OtpPage(String uName, String emailID, String rawCookie) {
-    //this.custPerson = custPerson;
+  OtpPage(String uName, String emailID) {
     this.uName = uName;
     this.emailID = emailID;
-    this.rawCookie = rawCookie;
   }
-  //OtpPage({@required this.onSignUpSelected});
 
   @override
-  _OtpPageState createState() => _OtpPageState(rawCookie);
+  _OtpPageState createState() => _OtpPageState();
 }
 
 class _OtpPageState extends State<OtpPage> {
   final otpController = TextEditingController();
-  String rawCookie;
+
   Option selectedOption = Option.LogIn;
 
-  _OtpPageState(String rawCookie) {
-    this.rawCookie = rawCookie;
-  }
+  _OtpPageState() {}
 
   @override
   void initState() {
@@ -44,19 +36,15 @@ class _OtpPageState extends State<OtpPage> {
 
   Future<CustPerson> validateOTP(int otp) async {
     try {
-      Map<String, String> headers = {"Content-Type": "application/json"};
-      //if (rawCookie != null) {
-      //  int index = rawCookie.indexOf(';');
-      // headers['cookie'] =
-      // (index == -1) ? rawCookie : rawCookie.substring(0, index);
-      //  if (rawCookie != null) {
-      // int index = rawCookie.indexOf(';');
-      var result = await http.get(Uri.parse(
-          'https://192.168.1.9:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'));
+      var result = await http.get(
+        Uri.parse(
+            'https://192.168.1.19:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'),
+      );
       print("Result");
       print(result.statusCode);
+      print(result.headers);
       print(result.body);
-      if (result.statusCode == 204) {
+      if (result.statusCode == 200) {
         if (result.body.isNotEmpty) {
           CustPerson custPerson = CustPerson.fromJson(jsonDecode(result.body));
           return custPerson;
@@ -81,7 +69,7 @@ class _OtpPageState extends State<OtpPage> {
                       },
                     )));
       }
-      //   }
+      // }
       // }
     } catch (Exception) {
       print(Exception.toString());

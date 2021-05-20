@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Web;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AniDAAPI.Controllers
 {
@@ -22,10 +23,14 @@ namespace AniDAAPI.Controllers
         //    return View();
         //}
         private readonly PAAMRAdbContext _context;
-
-        public OTPController(PAAMRAdbContext context)
+        private Dictionary<String, int> map;
+        private readonly IMemoryCache memoryCache;
+        public OTPController(IMemoryCache memoryCache,PAAMRAdbContext context)
         {
+            this.memoryCache = memoryCache;
             _context = context;
+            map = new Dictionary<string, int>();
+            System.Diagnostics.Debug.WriteLine("Im here");
         }
 
         // GET: api/BunkerInfo/5
@@ -64,10 +69,9 @@ namespace AniDAAPI.Controllers
             Random random = new Random();
             int otp = 100000 + random.Next(900000);
             HttpContext.Session.SetInt32(key, otp);
-  
-            int? serverOTP = HttpContext.Session.GetInt32(key);
-            System.Diagnostics.Debug.WriteLine("SERVER OTP");
-            System.Diagnostics.Debug.WriteLine(serverOTP);
+           
+            memoryCache.Set(key, otp);
+           
             return otp;
         }
         [HttpGet("ValidateOTP/{logonName}/{otp}")]
@@ -78,6 +82,8 @@ namespace AniDAAPI.Controllers
             if (otp >= 0)
             {
                 int? serverOTP = HttpContext.Session.GetInt32(logonName);
+                
+
                 System.Diagnostics.Debug.WriteLine("Hello",logonName);
 
                 System.Diagnostics.Debug.WriteLine("SERVER OTP");
@@ -150,7 +156,13 @@ namespace AniDAAPI.Controllers
 
             if (otp >= 0)
             {
-                int? serverOTP = HttpContext.Session.GetInt32(uName);
+                // int? serverOTP = HttpContext.Session.GetInt32(uName);
+                //System.Diagnostics.Debug.WriteLine(map.Keys.Count);
+                int? serverOTP = memoryCache.Get<int?>(uName);
+                
+
+                    //(map.ContainsKey(uName)) ? map[uName]:null;
+                if (serverOTP != null) memoryCache.Remove(uName);
                 System.Diagnostics.Debug.WriteLine("Hello", uName);
 
                 System.Diagnostics.Debug.WriteLine("SERVER OTP");

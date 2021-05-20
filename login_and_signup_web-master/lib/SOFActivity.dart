@@ -42,6 +42,7 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
     try {
       var result = await http
           .get(Uri.parse(urlIP + '/api/Softran/${widget.custQuoteMasterID}'));
+
       if (result.statusCode == 200) {
         List<SOFTrans> activities = (json.decode(result.body) as List)
             .map((i) => SOFTrans.fromJson(i))
