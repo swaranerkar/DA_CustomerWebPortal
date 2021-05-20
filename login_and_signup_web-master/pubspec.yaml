@@ -26,6 +26,15 @@ dependencies:
     sdk: flutter
   date_format:
   fluttertoast: ^7.1.1
+  timer_button:
+  http_client:
+  #firebase_auth: 
+  #firebase_core:
+  #firebase: 
+  #firebase_auth_platform_interface: 
+  #firebase_auth_oauth_platform_interface: 
+  #firebase_auth_oauth:  
+
 
 
   # The following adds the Cupertino Icons font to your application.

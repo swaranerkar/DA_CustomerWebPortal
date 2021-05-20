@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http_client/browser.dart';
 import 'package:login_and_signup_web/OtpPage.dart';
 import 'package:login_and_signup_web/constants.dart';
 import 'Model/CustPerson.dart';
 import 'homescreen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:html' as htm;
+import 'package:http_client/browser.dart' as ht;
 
 // ignore: must_be_immutable
 class LogIn extends StatefulWidget {
@@ -40,6 +43,8 @@ class _LogInState extends State<LogIn> {
   // ignore: non_constant_identifier_names
   final PasswordController = TextEditingController();
   bool _isHidden = true;
+  String rawCookie;
+  final http.Client _client = http.Client();
 
   void authUser(String uname, String pswd) async {
     String url = 'https://192.168.1.9:45455/api/CustPerson/login/$uname/$pswd';
@@ -51,13 +56,25 @@ class _LogInState extends State<LogIn> {
     //   this.rawCookie = res.headers['set-cookie'];
     //  });
 
-    String result = "Success";
+    //String result = "Success";
     if (res.statusCode == 200) {
       CustPerson custPerson = CustPerson.fromJson(jsonDecode(res.body));
+      String url1 =
+          'https://192.168.1.9:45455/api/OTPController/GetOTP/${custPerson.cPerUName}/${custPerson.custPersonEmail}';
+      http.Response res1 = await http.get(Uri.parse(url1));
+      print("OTP sent response code:");
+      print(res1.statusCode);
+      print(res1.headers);
+      setState(() {
+        this.rawCookie = res1.headers['Cookie'];
+      });
+      print("rawCookie");
+      print(rawCookie);
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomeScreen(custPerson))); //userID)))
+              builder: (context) => OtpPage(custPerson.cPerUName,
+                  custPerson.custPersonEmail, rawCookie))); //userID)))
 
     } else {
       print('Invalid Credentials');

@@ -111,6 +111,81 @@ namespace AniDAAPI.Controllers
 
         }
 
+        // GET: api/BunkerInfo/5
+        [HttpGet("GetWebOTP/{UName}/{emailId}")]
+        public async Task<ActionResult> GetUserWebOTP(String UName, String emailId)
+        {
+
+            var user1 = await _context.CustPerson.Where(c => c.CPerUName.Equals(UName) && c.CustPersonEmail.Equals(emailId))
+                .FirstOrDefaultAsync();
+            if (user1 == null)
+            {
+                return NotFound();
+            }
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("paamra.mailserver@gmail.com");
+            msg.To.Add(emailId);
+            msg.Subject = "OTP to login to your PAAMRA account";
+            msg.Body = "Hello, your OTP is:" + generateOTP(UName);
+            msg.IsBodyHtml = true;
+
+            SmtpClient smt = new SmtpClient();
+            smt.Host = "smtp.gmail.com";
+            System.Net.NetworkCredential ntwd = new NetworkCredential();
+            ntwd.UserName = "paamra.mailserver@gmail.com";
+            ntwd.Password = "tester-account";
+            smt.UseDefaultCredentials = false;
+            smt.Credentials = ntwd;
+            smt.Port = 587;
+            smt.EnableSsl = true;
+            smt.Send(msg);
+            return NoContent();
+        }
+
+        [HttpGet("ValidateWebOTP/{uName}/{otp}")]
+        public async Task<ActionResult<CustPerson>> ValidateWebOTP(String uName, int otp)
+        {
+
+
+            if (otp >= 0)
+            {
+                int? serverOTP = HttpContext.Session.GetInt32(uName);
+                System.Diagnostics.Debug.WriteLine("Hello", uName);
+
+                System.Diagnostics.Debug.WriteLine("SERVER OTP");
+                System.Diagnostics.Debug.WriteLine(serverOTP);
+                if (serverOTP == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Server OTP NULL", serverOTP);
+                }
+
+                if (serverOTP > 0 && otp == serverOTP)
+                {
+                    HttpContext.Session.Remove(uName);
+                    var cuser = await _context.CustPerson.Where(c => c.CPerUName.Equals(uName)).FirstOrDefaultAsync();
+
+
+                    if (cuser == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("User is NULL");
+                        return NotFound();
+                    }
+                    else
+                        return cuser;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("OTP not equal to server OTP");
+                }
+            }
+            System.Diagnostics.Debug.WriteLine(otp);
+            return NoContent();
+
+
+        }
+
+
 
     }
 }
