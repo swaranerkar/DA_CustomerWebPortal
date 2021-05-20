@@ -24,7 +24,7 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
   final dateFormat = new DateFormat('dd-MM-yyyy');
   List<ListBillActTrans> list;
   int i = 1;
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.5:45455";
   void initState() {
     super.initState();
     i = 1;
@@ -49,14 +49,6 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
 
         return activities;
       } else {
-        /*Fluttertoast.showToast(
-            msg: "Failed to fetch saved Billable activities!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
         throw Exception('Failed to load');
       }
     } catch (Exception) {
@@ -104,11 +96,6 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
                 ),
               ),
             ),
-
-            // Divider(
-            //   height: 10,
-            //   color: Colors.grey,
-            // ),
             Card(
               margin: EdgeInsets.symmetric(horizontal: 10),
               //margin: EdgeInsets.all(10),
@@ -117,13 +104,6 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
               ),
               child: Container(
                 width: 2000,
-                // child: Expanded(
-                //child: ListView(
-                //children: <Widget>[
-                //child: SingleChildScrollView(
-                // scrollDirection: Axis.vertical,
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
                 child: DataTable(
                     showBottomBorder: true,
 
@@ -143,16 +123,6 @@ class _BillableActivityWidgetState extends State<BillableActivityWidget> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      // DataColumn(
-                      //   label: Text(
-                      //     'Activity Name',
-                      //     overflow: TextOverflow.ellipsis,
-                      //     // strutStyle: StrutStyle.
-                      //     style: TextStyle(
-                      //         fontStyle: FontStyle.normal,
-                      //         fontWeight: FontWeight.bold),
-                      //   ),
-                      // ),
                       DataColumn(
                         label: Text(
                           'Date',

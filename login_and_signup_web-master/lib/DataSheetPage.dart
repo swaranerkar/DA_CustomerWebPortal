@@ -31,14 +31,12 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
   final lubController = TextEditingController();
   final gasOilController = TextEditingController();
   final fwrobController = TextEditingController();
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.5:45455";
 
   void initState() {
     super.initState();
 
     setState(() {
-      // now = new DateTime.now();
-      // date = new DateTime(now.year, now.month, now.day);
       if (widget.custQuoteMasterID != null)
         getArrivalInfo(widget.custQuoteMasterID);
     });
@@ -110,7 +108,6 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                     child: Column(
                       children: [
                         Container(
-                          //color: kPrimaryColor5,
                           padding: EdgeInsets.only(top: 10),
                           margin:
                               EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -126,7 +123,6 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
                         Row(children: [
                           Expanded(
                               child: Container(
-                            //height: 50,
                             margin: EdgeInsets.symmetric(
                                 horizontal: 5, vertical: 2),
                             child: TextField(
@@ -437,7 +433,7 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
   final fwrobController = TextEditingController();
   DateTime now;
   DateTime date;
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.5:45455";
   void initState() {
     super.initState();
 
@@ -463,14 +459,6 @@ class _DepartureInfoWidgetState extends State<DepartureInfoWidget> {
           fwrobController.text = this.departureInfo.hforob.toString();
         });
       } else {
-        /* Fluttertoast.showToast(
-            msg: "Failed to fetch departure info!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
         throw Exception('Failed to fetch departure information!');
       }
     } catch (Exception) {
@@ -836,13 +824,11 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
   final mdorecdController = TextEditingController();
   final gasOilRecdController = TextEditingController();
   final fwrecdController = TextEditingController();
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.5:45455";
   void initState() {
     super.initState();
 
     setState(() {
-      // now = new DateTime.now();
-      // date = new DateTime(now.year, now.month, now.day);
       if (widget.custQuoteMasterID != null)
         getBunkerInfo(widget.custQuoteMasterID);
     });
@@ -861,14 +847,6 @@ class _BunkerInfoWidgetState extends State<BunkerInfoWidget> {
           fwrecdController.text = bunkerInfo.fwrecd.toString();
         });
       } else {
-        /*  Fluttertoast.showToast(
-            msg: "Failed to fetch bunker info!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
         throw Exception('Failed to fetch bunker information!');
       }
     } catch (Exception) {
@@ -1169,35 +1147,14 @@ class DataSheetPageWidget extends StatefulWidget {
 class _DataSheetPageWidgetState extends State<DataSheetPageWidget> {
   @override
   Widget build(BuildContext context) {
-    // return SingleChildScrollView(
-    //   child: Container(
-    //     color: Colors.white,
-    //     height: 200,
-    //     width: 200,
-    //     // child: SingleChildScrollView(
-
-    //     child:
     return Container(
         color: Colors.grey[200],
         child: ListView(
-          // (children: [],Column(
           children: [
-            //Flexible(
-            //child:
             ArrivalInfoWidget(widget.custPerson, widget.custQuoteMasterID),
-            // ),
-            //Flexible(
-            // child:
-            BunkerInfoWidget(widget.custPerson, widget.custQuoteMasterID)
-            //),
-            ,
-            //  Flexible(
-            //child:
-            DepartureInfoWidget(widget.custPerson, widget.custQuoteMasterID)
-            //),
+            BunkerInfoWidget(widget.custPerson, widget.custQuoteMasterID),
+            DepartureInfoWidget(widget.custPerson, widget.custQuoteMasterID),
           ],
-
-          //)
         ));
   }
 }

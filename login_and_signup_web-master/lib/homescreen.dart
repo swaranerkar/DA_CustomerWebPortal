@@ -5,13 +5,12 @@ import 'package:login_and_signup_web/Model/CustPerson.dart';
 import 'ClosedVoyageFilesScreen.dart';
 import 'OpenVoyageFilesScreen.dart';
 import 'constants.dart';
+import 'main.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  //UserDetails userDetails;
   CustPerson custPerson;
   HomeScreen(CustPerson custPerson) {
-    //this.userDetails = userDetails;
     this.custPerson = custPerson;
   }
 
@@ -19,7 +18,18 @@ class HomeScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _HomeScreenState();
 }
 
+class Constants {
+  static const String SignOut = 'SIGN OUT';
+  static const List<String> choices = [SignOut];
+}
+
 class _HomeScreenState extends State<HomeScreen> {
+  void choiceAction(String choice) {
+    if (choice == Constants.SignOut) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor3,
@@ -44,6 +54,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "Welcome, " + widget.custPerson.custPersonFullName,
                     style: TextStyle(fontSize: 22, color: Colors.white),
+                  )),
+              Positioned(
+                  left: 40,
+                  top: 30,
+                  child: PopupMenuButton<String>(
+                    onSelected: choiceAction,
+                    icon: Icon(Icons.menu, color: Colors.white),
+                    itemBuilder: (BuildContext context) {
+                      return Constants.choices.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(choice,
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        );
+                      }).toList();
+                    },
                   ))
             ],
           )),

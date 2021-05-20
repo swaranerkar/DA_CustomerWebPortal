@@ -26,7 +26,7 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
   final remarksController = TextEditingController();
   DateTime now;
   DateTime date;
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.5:45455";
   void initState() {
     super.initState();
 
@@ -50,14 +50,6 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
           remarksController.text = crewChange.remarks;
         });
       } else {
-        /* Fluttertoast.showToast(
-            msg: "Failed to fetch crew change info!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
         throw Exception('Failed to fetch crew change information!');
       }
     } catch (Exception) {
@@ -68,14 +60,6 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    /* final signOnController = TextEditingController();
-    final signOffController = TextEditingController();
-    final remarksController = TextEditingController();
-
-    signOnController.text = '5';
-    signOffController.text = '2';
-    remarksController.text = 'checked';*/
-
     return SingleChildScrollView(
         //     child:
         //return SafeArea(
@@ -108,7 +92,6 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
               ),
             ),
           ),
-
           Row(
             children: [
               Flexible(
@@ -205,19 +188,6 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
               ),
             ],
           ),
-
-          // SizedBox(
-          //   height: 30,
-          // ),
-          // Divider(
-          //   height: 10,
-          //   color: Colors.grey,
-          // ),
-          // SizedBox(
-          //   height: 30,
-          // ),
-          // Flexible(
-          //   child:
           Card(
             color: Colors.white,
             margin: EdgeInsets.all(10),
@@ -260,8 +230,6 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
               ],
             ),
           ),
-          // ),
-
           CTMDeliveryWidget(widget.custPerson, widget.custQuoteMasterID),
         ],
       ),

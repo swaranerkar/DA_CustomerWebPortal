@@ -12,6 +12,7 @@ import 'DataSheetPage.dart';
 import 'Model/CustPerson.dart';
 import 'Model/ListVoyFiles.dart';
 import 'SOFActivity.dart';
+import 'homescreen.dart';
 import 'main.dart';
 
 // ignore: must_be_immutable
@@ -37,7 +38,7 @@ class Constants {
 class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
   Future<List<CustPerShipLU>> custPerShipLU;
   List<ListVoyFiles> voyageFiles;
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.5:45455";
   bool search = false;
   void initState() {
     super.initState();
@@ -47,8 +48,7 @@ class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
 
   void choiceAction(String choice) {
     if (choice == Constants.SignOut) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
     }
   }
 
@@ -106,7 +106,17 @@ class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(35.0), // here the desired height
             child: new AppBar(
+              centerTitle: true,
               title: Text('CLOSED VOYAGE FILES'),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: (Colors.white),
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                HomeScreen(widget.custPerson)),
+                      )),
               actions: <Widget>[
                 PopupMenuButton<String>(
                   onSelected: choiceAction,
@@ -157,14 +167,8 @@ class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
                     ),
                   ),
                 ),
-                body: // Column(
-                    //children: [
-                    //FloatingSearchBar(),
-                    VoyFilePageWidget(widget.custPerson, voyageFiles,
-                        widget.custQuoteMasterID)
-                //  ],
-                //)
-                ),
+                body: VoyFilePageWidget(
+                    widget.custPerson, voyageFiles, widget.custQuoteMasterID)),
           ),
           Expanded(
               flex: 8,
@@ -272,7 +276,7 @@ class DataSearch extends SearchDelegate<String> {
   List<ListVoyFiles> files;
   ListVoyFiles currentFile;
   List<String> daRefs = [];
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.5:45455";
   //List<String> daRefs;
   DataSearch(
       List<ListVoyFiles> files, int custQuoteMasterID, CustPerson custPerson) {
@@ -401,7 +405,6 @@ class DataSearch extends SearchDelegate<String> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
           )
         : ListView.builder(
-            //shrinkWrap: true,
             itemBuilder: (context, index) => ListTile(
                 onTap: () {
                   getFile(index);

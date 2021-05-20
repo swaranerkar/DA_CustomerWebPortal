@@ -26,7 +26,7 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
   final ctmdelAmtController = TextEditingController();
   DateTime now;
   DateTime date;
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.5:45455";
   void initState() {
     super.initState();
 
@@ -54,16 +54,7 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
           ctmDeliveryDateController.text =
               DateFormat("dd-MM-yyyy").format(temp);
         });
-      } else {
-        /*Fluttertoast.showToast(
-            msg: "Failed to fetch CTM info!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
-      }
+      } else {}
     } catch (Exception) {
       print(Exception.toString());
     }
@@ -71,16 +62,6 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    /* final ctmAmtReqController = TextEditingController();
-    final ctmCurrController = TextEditingController();
-    final deliveryDateController = TextEditingController();
-    final deliveryAmtController = TextEditingController();
-
-    ctmAmtReqController.text = '260.0';
-    ctmCurrController.text = 'USD';
-    deliveryDateController.text = '26-02-2021';
-    deliveryAmtController.text = '500.0';*/
-
     return Container(
         color: Colors.grey[200],
         child: Column(
@@ -102,7 +83,6 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
                 ),
               ),
             ),
-
             Container(
               child: Row(
                 children: [
@@ -201,13 +181,6 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   height: 30,
-            // ),
-            // Divider(
-            //   height: 10,
-            //   color: Colors.grey,
-            // ),
             Card(
               margin: EdgeInsets.symmetric(horizontal: 10),
               color: kPrimaryColor1,
@@ -224,13 +197,6 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
                 ),
               ),
             ),
-            // Divider(
-            //   height: 10,
-            //   color: Colors.grey,
-            // ),
-            // SizedBox(
-            //   height: 30,
-            // ),
             Container(
               child: Row(
                 children: [
@@ -244,7 +210,6 @@ class _CTMDeliveryWidgetState extends State<CTMDeliveryWidget> {
                       child: Column(
                         children: [
                           Container(
-                            //color: kPrimaryColor5,
                             padding: EdgeInsets.only(top: 10),
                             margin: EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),

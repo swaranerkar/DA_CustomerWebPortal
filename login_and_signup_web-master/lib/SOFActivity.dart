@@ -26,7 +26,7 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
   Future<List<SOFTrans>> activities;
   final dateFormat = new DateFormat('dd-MM-yyyy');
   List<SOFTrans> list;
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.5:45455";
   int i = 1;
   void initState() {
     super.initState();
@@ -53,14 +53,6 @@ class _SOFActivityWidgetState extends State<SOFActivityWidget> {
         fetchTypeDesc();
         return activities;
       } else {
-        /*Fluttertoast.showToast(
-            msg: "Failed to fetch saved SOF activities!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: const Color(0xffD09FA6),
-            textColor: Colors.white,
-            fontSize: 16.0);*/
         throw Exception('Failed to load');
       }
     } catch (Exception) {

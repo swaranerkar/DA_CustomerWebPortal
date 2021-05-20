@@ -21,7 +21,7 @@ class ShipDetails extends StatefulWidget {
 
 class _ShipDetailsState extends State<ShipDetails> {
   bool _isEnabled = false;
-  // final daReferenceController = TextEditingController();
+
   final custShipNameController = TextEditingController();
   final customerNameController = TextEditingController();
   final purposeCallController = TextEditingController();
@@ -29,7 +29,7 @@ class _ShipDetailsState extends State<ShipDetails> {
   final agencyTypeDescController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
-  String urlIP = "https://192.168.1.9:45455";
+  String urlIP = "https://192.168.1.5:45455";
   final dateTimeFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss");
   final dateFormat = new DateFormat('dd-MM-yyyy');
   final timeFormat = new DateFormat('HH:mm');
@@ -116,24 +116,9 @@ class _ShipDetailsState extends State<ShipDetails> {
 
   @override
   Widget build(BuildContext context) {
-    /* final shipNameController = TextEditingController();
-    final custNameController = TextEditingController();
-    final purposeOfCallController = TextEditingController();
-    final vesselLocController = TextEditingController();
-    final agencyTypeController = TextEditingController();
-    final etaController = TextEditingController();
-    final etdController = TextEditingController();
-
-    shipNameController.text = 'MT.DS.POWER';
-    custNameController.text = 'INTERNANTIONAL TANKER MANAGEMENT(GERMANY)';
-    purposeOfCallController.text = 'goods delivery';
-    vesselLocController.text = 'Algas Anchorage';
-    agencyTypeController.text = 'Agency';
-    etaController.text = '10-04-2021   02:00';
-    etdController.text = '10-04-2021   19:00';*/
-
     return SingleChildScrollView(
         child: Container(
+            height: MediaQuery.of(context).size.height,
             // child: Flexible(
             color: Colors.grey[200],
             child: Column(children: [
@@ -155,16 +140,10 @@ class _ShipDetailsState extends State<ShipDetails> {
                         shape: BeveledRectangleBorder(
                           borderRadius: BorderRadius.circular(0),
                         ),
-                        //shadowColor: Colors.grey[200],
-                        //shape: ,
                         color: Colors.white,
                         child: Column(
                           children: [
                             Container(
-                              //color: kPrimaryColor5,
-                              // padding: EdgeInsets.only(
-                              //   top: 10,
-                              // ),
                               padding: EdgeInsets.only(top: 10),
                               margin: EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
@@ -178,7 +157,6 @@ class _ShipDetailsState extends State<ShipDetails> {
                               ),
                             ),
                             Container(
-                              //height: 50,
                               margin: EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 2),
                               child: TextField(
@@ -212,7 +190,6 @@ class _ShipDetailsState extends State<ShipDetails> {
                         child: Column(
                           children: [
                             Container(
-                              //color: kPrimaryColor5,
                               padding: EdgeInsets.only(top: 10),
                               margin: EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
@@ -265,7 +242,6 @@ class _ShipDetailsState extends State<ShipDetails> {
                         child: Column(
                           children: [
                             Container(
-                              //color: kPrimaryColor5,
                               padding: EdgeInsets.only(top: 10),
                               margin: EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
@@ -313,7 +289,6 @@ class _ShipDetailsState extends State<ShipDetails> {
                         child: Column(
                           children: [
                             Container(
-                              //color: kPrimaryColor5,
                               padding: EdgeInsets.only(top: 10),
                               margin: EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
@@ -544,40 +519,7 @@ class _ShipDetailsState extends State<ShipDetails> {
                         ],
                       ),
                     ),
-                    // Flexible(
-                    //   flex: 2,
-                    //   child: Container(
-                    //       height: 50,
-                    //       width: 150,
-                    //       color: kPrimaryColor1,
-                    //       margin: EdgeInsets.symmetric(horizontal: 4),
-                    //       child: GestureDetector(
-                    //         onTap: () => {
-                    //           Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //                 builder: (context) =>
-                    //                     HomeScreen(widget.userDetails)),
-                    //           )
-                    //         },
-                    //         child: Row(
-                    //           children: [
-                    //             // Padding(
-                    //             //     padding: EdgeInsets.only(left: 20),
-                    //             //     child: Text("VIEW ON MAP")),
-                    //             // Icon(
-                    //             //   Icons.arrow_forward_ios_rounded,
-                    //             //   color: Colors.black,
-                    //             // ),
-                    //           ],
-                    //         ),
-                    //       )),
-
-                    //   //  )
-                    // ),
-                  ])
-                  //),
-                  )
+                  ]))
             ])));
   }
 }
