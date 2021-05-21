@@ -4,9 +4,10 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
-            "name": "login_and_signup_web-master",
-            "cwd": "login_and_signup_web-master",
+            "name": "DA_CustomerWebPortal",
+            "cwd": "DA_CustomerWebPortal",
             "request": "launch",
             "type": "dart"
         }
