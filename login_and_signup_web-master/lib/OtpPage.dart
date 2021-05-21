@@ -103,7 +103,7 @@ class _OtpPageState extends State<OtpPage> {
     try {
       var result = await http.get(
         Uri.parse(
-            'https://192.168.1.5:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'),
+            'https://192.168.1.19:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'),
       );
       print("Result");
       print(result.statusCode);

@@ -31,7 +31,7 @@ class _ArrivalInfoWidgetState extends State<ArrivalInfoWidget> {
   final lubController = TextEditingController();
   final gasOilController = TextEditingController();
   final fwrobController = TextEditingController();
-  String urlIP = "https://192.168.1.5:45455";
+  String urlIP = "https://192.168.1.19:45455";
 
   void initState() {
     super.initState();

@@ -38,7 +38,7 @@ class Constants {
 class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
   Future<List<CustPerShipLU>> custPerShipLU;
   List<ListVoyFiles> voyageFiles;
-  String urlIP = "https://192.168.1.5:45455";
+  String urlIP = "https://192.168.1.19:45455";
   bool search = false;
   void initState() {
     super.initState();
