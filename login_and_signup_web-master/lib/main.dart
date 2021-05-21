@@ -77,6 +77,32 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            Positioned(
+              left: 540,
+              top: 40,
+              //right: 200,
+              // alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.all(32),
+                child: Container(
+                    height: 170,
+                    width: 200,
+                    color: const Color(0xff3D5A80),
+                    child: Image.asset(
+                      'assets/images/PAAMRA.png',
+                      //scale: 0.3,
+                      height: 100,
+                      width: 200,
+                      fit: BoxFit.fitWidth,
+
+                      // height: 10,
+                      // width: 10,
+                    )),
+              ),
+            ),
+            SizedBox(
+              height: 80,
+            ),
             AnimatedSwitcher(
               duration: Duration(milliseconds: 500),
               transitionBuilder: (widget, animation) =>

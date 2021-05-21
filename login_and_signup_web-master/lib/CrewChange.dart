@@ -64,6 +64,7 @@ class _CrewChangeWidgetState extends State<CrewChangeWidget> {
         //     child:
         //return SafeArea(
         child: Container(
+      height: MediaQuery.of(context).size.height,
       color: Colors.grey[200],
       child: Column(
         children: [

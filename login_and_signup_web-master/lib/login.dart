@@ -138,7 +138,7 @@ class _LogInState extends State<LogIn> {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.only(left: 150, right: 150, top: 100, bottom: 40),
+      padding: EdgeInsets.only(left: 150, right: 150, top: 230, bottom: 40),
       child: Center(
         child: Card(
           elevation: 4,
@@ -149,7 +149,7 @@ class _LogInState extends State<LogIn> {
           ),
           child: AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            height: 500,
+            height: 450,
             width: 400,
             color: kPrimaryColor1,
             child: Center(
@@ -177,7 +177,7 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       SizedBox(
-                        height: 32,
+                        height: 28,
                       ),
                       TextField(
                         controller: UserNameController,
@@ -190,7 +190,7 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       SizedBox(
-                        height: 32,
+                        height: 28,
                       ),
                       TextField(
                         controller: PasswordController,
@@ -212,7 +212,7 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       SizedBox(
-                        height: 64,
+                        height: 30,
                       ),
                       new RaisedButton(
                         color: Colors.white,
