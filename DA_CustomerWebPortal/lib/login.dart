@@ -102,14 +102,14 @@ class _LogInState extends State<LogIn> {
   }
 
   void authUser(String uname, String pswd) async {
-    String url = 'https://192.168.1.19:45455/api/CustPerson/login/$uname/$pswd';
+    String url = 'https://192.168.1.5:45455/api/CustPerson/login/$uname/$pswd';
 
     var res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       CustPerson custPerson = CustPerson.fromJson(jsonDecode(res.body));
 
       String url1 =
-          'http://192.168.1.19:45455/api/OTPController/GetOTP/${custPerson.cPerUName}/${custPerson.custPersonEmail}';
+          'http://192.168.1.5:45455/api/OTPController/GetOTP/${custPerson.cPerUName}/${custPerson.custPersonEmail}';
       http.Response res1 = await http.get(Uri.parse(url1));
 
       print("OTP sent response code:");

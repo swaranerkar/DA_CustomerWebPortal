@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shruti\\Desktop\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {}
+    "E:\\Git Code\\DA_CustomerWebPortal\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shruti\\Desktop\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {
+    "E:\\Git Code\\DA_CustomerWebPortal\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shruti\\Desktop\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
+        "projectUniqueName": "E:\\Git Code\\DA_CustomerWebPortal\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
         "projectName": "AniDAAPI",
-        "projectPath": "C:\\Users\\shruti\\Desktop\\web_login\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
-        "packagesPath": "C:\\Users\\shruti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shruti\\Desktop\\web_login\\AniDAAPI\\AniDAAPI\\obj\\",
+        "projectPath": "E:\\Git Code\\DA_CustomerWebPortal\\AniDAAPI\\AniDAAPI\\AniDAAPI.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\Git Code\\DA_CustomerWebPortal\\AniDAAPI\\AniDAAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\shruti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

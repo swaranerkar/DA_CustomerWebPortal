@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.17.0
   requests: ^3.3.0
   image_picker:
+  argon_buttons_flutter:
 
 dev_dependencies:
   flutter_test:

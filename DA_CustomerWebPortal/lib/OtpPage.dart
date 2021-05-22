@@ -1,3 +1,4 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_and_signup_web/constants.dart';
@@ -103,7 +104,7 @@ class _OtpPageState extends State<OtpPage> {
     try {
       var result = await http.get(
         Uri.parse(
-            'https://192.168.1.19:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'),
+            'https://192.168.1.5:45455/api/OTPController/ValidateWebOTP/${widget.uName}/$otp'),
       );
       print("Result");
       print(result.statusCode);
@@ -223,27 +224,39 @@ class _OtpPageState extends State<OtpPage> {
                           SizedBox(
                             height: 32,
                           ),
-                          Container(
-                              width: 170,
-                              height: 45,
-                              child: new TimerButton(
-                                label: "RESEND",
-                                buttonType: ButtonType.RaisedButton,
-                                timeOutInSeconds: 180,
-                                onPressed: () {
-                                  _showToastResend();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MyApp()));
-                                },
-                                disabledColor: const Color(0xffB4656F),
-                                color: Colors.white,
-                                disabledTextStyle:
-                                    new TextStyle(fontSize: 20.0),
-                                activeTextStyle: new TextStyle(
-                                    fontSize: 20.0, color: Colors.black),
-                              )) //userID)))
+                          ArgonTimerButton(
+                            initialTimer: 180, // Optional
+                            height: 45,
+                            width: MediaQuery.of(context).size.width * 0.14,
+                            minWidth: MediaQuery.of(context).size.width * 0.14,
+                            color: Colors.white,
+                            borderRadius: 30,
+                            child: Text(
+                              "Resend OTP",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                            ),
+                            loader: (timeLeft) {
+                              return Text(
+                                "Time Left | $timeLeft",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
+                              );
+                            },
+                            onTap: (startTimer, btnState) {
+                              if (btnState == ButtonState.Idle) {
+                                //startTimer(5);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyApp()));
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
