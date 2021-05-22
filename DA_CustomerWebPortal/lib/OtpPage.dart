@@ -194,9 +194,9 @@ class _OtpPageState extends State<OtpPage> {
                             textColor: Colors.black,
                             elevation: 5.0,
                             splashColor: kPrimaryColor2,
-                            padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
+                            padding: EdgeInsets.fromLTRB(53, 20, 53, 20),
                             shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(18.0),
+                              borderRadius: new BorderRadius.circular(30.0),
                             ),
                             onPressed: () async {
                               {
@@ -227,17 +227,15 @@ class _OtpPageState extends State<OtpPage> {
                           ArgonTimerButton(
                             initialTimer: 180, // Optional
                             height: 45,
-                            width: MediaQuery.of(context).size.width * 0.14,
-                            minWidth: MediaQuery.of(context).size.width * 0.14,
+                            width: MediaQuery.of(context).size.width * 0.11,
+                            minWidth: MediaQuery.of(context).size.width * 0.11,
                             color: Colors.white,
                             borderRadius: 30,
-                            child: Text(
-                              "Resend OTP",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                            ),
+                            child: Text("Resend OTP",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                )),
                             loader: (timeLeft) {
                               return Text(
                                 "Time Left | $timeLeft",
