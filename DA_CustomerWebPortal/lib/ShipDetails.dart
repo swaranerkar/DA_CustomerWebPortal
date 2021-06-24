@@ -29,7 +29,7 @@ class _ShipDetailsState extends State<ShipDetails> {
   final agencyTypeDescController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.10:45455";
   final dateTimeFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss");
   final dateFormat = new DateFormat('dd-MM-yyyy');
   final timeFormat = new DateFormat('HH:mm');

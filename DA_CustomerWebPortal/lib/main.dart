@@ -24,6 +24,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //return new WillPopScope(
+    // onWillPop: () async => false,
     return MaterialApp(
       title: 'Port Agency and Disbursement Accounting System – Customer Portal',
       theme: ThemeData(
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      // ),
     );
   }
 }

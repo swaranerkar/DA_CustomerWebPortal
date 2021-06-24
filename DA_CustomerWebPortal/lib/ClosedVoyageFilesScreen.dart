@@ -38,7 +38,7 @@ class Constants {
 class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
   Future<List<CustPerShipLU>> custPerShipLU;
   List<ListVoyFiles> voyageFiles;
-  String urlIP = "https://192.168.1.19:45455";
+  String urlIP = "https://192.168.1.10:45455";
   bool search = false;
   void initState() {
     super.initState();
@@ -102,81 +102,86 @@ class ClosedVoyageFilesScreenState extends State<ClosedVoyageFilesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(35.0), // here the desired height
-            child: new AppBar(
-              centerTitle: true,
-              title: Text('CLOSED VOYAGE FILES'),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  color: (Colors.white),
-                  onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                HomeScreen(widget.custPerson)),
-                      )),
-              actions: <Widget>[
-                PopupMenuButton<String>(
-                  onSelected: choiceAction,
-                  icon: Icon(Icons.menu, color: Colors.white),
-                  itemBuilder: (BuildContext context) {
-                    return Constants.choices.map((String choice) {
-                      return PopupMenuItem<String>(
-                        value: choice,
-                        child: Text(choice,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      );
-                    }).toList();
-                  },
-                )
-              ],
-            )),
-        body: Row(children: [
-          Expanded(
-            flex: 2,
-            child: new Scaffold(
-                backgroundColor: kPrimaryColor1,
-                appBar: new PreferredSize(
-                  preferredSize: Size.fromHeight(kToolbarHeight),
-                  child: new Container(
-                    color: kPrimaryColor1,
-                    child: Scrollbar(
-                      child: ListView(children: [
-                        Container(
-                          height: 80,
-                          width: 40,
-                          color: Colors.white,
-                          child: ListTile(
-                              title: Text(
-                                'Search',
-                                style: TextStyle(color: Colors.grey[400]),
-                              ),
-                              trailing: Icon(Icons.search),
-                              onTap: () => {
-                                    showSearch(
-                                        context: context,
-                                        delegate: DataSearch(
-                                            voyageFiles,
-                                            widget.custQuoteMasterID,
-                                            widget.custPerson))
-                                  }),
+    return new WillPopScope(
+        onWillPop: () async => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomeScreen(widget.custPerson))),
+        child: Scaffold(
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(35.0), // here the desired height
+                child: new AppBar(
+                  centerTitle: true,
+                  title: Text('CLOSED VOYAGE FILES'),
+                  leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      color: (Colors.white),
+                      onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HomeScreen(widget.custPerson)),
+                          )),
+                  actions: <Widget>[
+                    PopupMenuButton<String>(
+                      onSelected: choiceAction,
+                      icon: Icon(Icons.menu, color: Colors.white),
+                      itemBuilder: (BuildContext context) {
+                        return Constants.choices.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice,
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          );
+                        }).toList();
+                      },
+                    )
+                  ],
+                )),
+            body: Row(children: [
+              Expanded(
+                flex: 2,
+                child: new Scaffold(
+                    backgroundColor: kPrimaryColor1,
+                    appBar: new PreferredSize(
+                      preferredSize: Size.fromHeight(kToolbarHeight),
+                      child: new Container(
+                        color: kPrimaryColor1,
+                        child: Scrollbar(
+                          child: ListView(children: [
+                            Container(
+                              height: 80,
+                              width: 40,
+                              color: Colors.white,
+                              child: ListTile(
+                                  title: Text(
+                                    'Search',
+                                    style: TextStyle(color: Colors.grey[400]),
+                                  ),
+                                  trailing: Icon(Icons.search),
+                                  onTap: () => {
+                                        showSearch(
+                                            context: context,
+                                            delegate: DataSearch(
+                                                voyageFiles,
+                                                widget.custQuoteMasterID,
+                                                widget.custPerson))
+                                      }),
+                            ),
+                          ]),
                         ),
-                      ]),
+                      ),
                     ),
-                  ),
-                ),
-                body: VoyFilePageWidget(
-                    widget.custPerson, voyageFiles, widget.custQuoteMasterID)),
-          ),
-          Expanded(
-              flex: 8,
-              child: SizedBox(
-                child: DisplayVoyageFilesScreen(
-                    widget.custPerson, widget.custQuoteMasterID),
-              ))
-        ]));
+                    body: VoyFilePageWidget(widget.custPerson, voyageFiles,
+                        widget.custQuoteMasterID)),
+              ),
+              Expanded(
+                  flex: 8,
+                  child: SizedBox(
+                    child: DisplayVoyageFilesScreen(
+                        widget.custPerson, widget.custQuoteMasterID),
+                  ))
+            ])));
   }
 }
 
@@ -276,7 +281,7 @@ class DataSearch extends SearchDelegate<String> {
   List<ListVoyFiles> files;
   ListVoyFiles currentFile;
   List<String> daRefs = [];
-  String urlIP = "https://192.168.1.5:45455";
+  String urlIP = "https://192.168.1.10:45455";
   //List<String> daRefs;
   DataSearch(
       List<ListVoyFiles> files, int custQuoteMasterID, CustPerson custPerson) {

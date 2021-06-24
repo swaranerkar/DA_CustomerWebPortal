@@ -52,6 +52,19 @@ namespace AniDAAPI.Controllers
 
             return userDetail;
         }
+        //Desktop Login
+        [HttpGet("login/{logonName}/{password}")]
+        public async Task<ActionResult<UserDetail>> AuthUserDetail(String logonName, String password)
+        {
+            var userDetail = await _context.UserDetails.Where(c => c.LogonName.Equals(logonName) && c.Password.Equals(password)).FirstOrDefaultAsync();
+
+            if (userDetail == null)
+            {
+                return NotFound();
+            }
+
+            return userDetail;
+        }
 
 
         // PUT: api/UserDetail/5
